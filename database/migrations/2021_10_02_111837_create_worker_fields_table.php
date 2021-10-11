@@ -14,7 +14,7 @@ class CreateWorkerFieldsTable extends Migration
     public function up()
     {
         Schema::connection('mysql')->create('worker_fields', function (Blueprint $table) {
-            $table->bigIncrements();
+            $table->id();
             $table->bigInteger('worker_id')->unsigned()->nullable();
             $table->string('label')->nullable();
             $table->string('value')->nullable();

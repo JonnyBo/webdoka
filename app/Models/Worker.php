@@ -28,16 +28,16 @@ class Worker extends Model
 
     public function saveWorker($data) {
         $this->user_id = $data['user_id'];
-        $this->right = (isset($data['right']) && $data['right']) ? $data['right'] : $this->rights[1];
-        $this->status = (isset($data['status']) && $data['status']) ? $data['status'] : $this->statuses[0];
+        $this->right = (isset($data['right']) && $data['right']) ? $data['right'] : $this->getRight()[1];
+        $this->status = (isset($data['status']) && $data['status']) ? $data['status'] : $this->getStatus()[0];
         return $this->save();
     }
 
     public function updateWorker($data) {
         $model = Worker::find($data['id']);
         $model->user_id = $data['user_id'];
-        $model->right = (isset($data['right']) && $data['right']) ? $data['right'] : $this->rights[1];
-        $model->status = (isset($data['status']) && $data['status']) ? $data['status'] : $this->statuses[0];
+        $model->right = (isset($data['right']) && $data['right']) ? $data['right'] : $this->getRight()[1];
+        $model->status = (isset($data['status']) && $data['status']) ? $data['status'] : $this->getStatus()[0];
         return $model->update();
     }
 
@@ -50,7 +50,7 @@ class Worker extends Model
     }
 
     public function delete() {
-        dd($this);
+        //dd($this);
         $this->fields()->delete();
         return parent::delete();
     }

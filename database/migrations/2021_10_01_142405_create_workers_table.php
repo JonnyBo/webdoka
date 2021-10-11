@@ -14,7 +14,8 @@ class CreateWorkersTable extends Migration
     public function up()
     {
         Schema::connection('mysql')->create('workers', function (Blueprint $table) {
-            $table->bigIncrements();
+            $table->id();
+            $table->integer('user_id')->unsigned()->index();
             $table->enum('right', ['пользователь', 'имеет доступ', 'админ']);
             $table->enum('status', ['работает сейчас', 'работал ранее', 'участвовал в собеседованиях', 'готов к подработкам']);
             $table->timestamps();

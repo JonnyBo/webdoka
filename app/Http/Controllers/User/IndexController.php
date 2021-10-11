@@ -38,7 +38,7 @@ class IndexController extends Controller {
         if (isset($_COOKIE["filter"]))
             $filter = $_COOKIE["filter"];
         else
-            $filter = $work->statuses[0];
+            $filter = $work->getStatus()[0];
         $data = $request->all();
         if (isset($data['filter']) && $data['filter']) {
             setcookie ("filter", $data['filter'],time()+3600);

@@ -19,12 +19,11 @@ class RegisterController extends Controller {
      */
     public function register(Request $request) {
         $data = $request->all();
-        /*
         if (!isset($data['token']) || !$data['token'])
             return redirect()
                 ->route('login')
                 ->withErrors('Не передан токен');
-        */
+
         //сделать проверку токена
 
         return view('auth.register');
