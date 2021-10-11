@@ -43,7 +43,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $connection = 'pgsql';
+    protected $connection = 'mysql';
 
     public function worker()
     {
