@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Field;
 use App\Models\Worker;
 use App\Models\User;
+use App\Models\Role;
+use App\Models\Source;
+use App\Models\Status;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Hash;
@@ -38,18 +42,21 @@ class IndexController extends Controller {
         if (isset($_COOKIE["filter"]))
             $filter = $_COOKIE["filter"];
         else
-            $filter = $work->getStatus()[0];
+            $filter = Status::find(1)->id;
         $data = $request->all();
         if (isset($data['filter']) && $data['filter']) {
             setcookie ("filter", $data['filter'],time()+3600);
             $filter = $data['filter'];
         }
-        /*
+
         $workers = User::with(['worker' => function ($query) use ($filter) {
-            $query->where('workers.status', '=', $filter)->get();
+            $query->where('workers.status_id', '=', $filter)->get();
         }])->get();
-        */
-        $allWorkers = User::with('worker')->get();
+
+        dd($workers);
+
+        //$workers = User::with('worker')->where('status_id', $filter)->get();
+        /*
         $workers = [];
         if ($filter != '') {
             foreach ($allWorkers as $worker) {
@@ -58,7 +65,7 @@ class IndexController extends Controller {
                 }
             }
         }
-
+        */
         return view('user.workers', compact('workers', 'work', 'filter'));
     }
 
@@ -74,7 +81,11 @@ class IndexController extends Controller {
                 ->route('welcome')
                 ->withErrors('Не достаточно прав для создания сотрудников');
         $worker = new Worker();
-        return view('user.create', compact('worker'));
+        $roles = Role::all();
+        $statuses = Status::all();
+        $sources = Source::all();
+        $skills = Skill::all();
+        return view('user.create', compact('worker', 'roles', 'statuses', 'sources', 'skills'));
     }
 
     public function store(Request $request)
@@ -94,6 +105,7 @@ class IndexController extends Controller {
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            "role_id" => $request->role_id
         ]);
 
         $data = $request->all();

@@ -59,6 +59,21 @@
                     <a class="nav-link" href="/invite">Пригласить сотрудника</a>
                 </li>
             </ul>
+            <h3>Справочники</h3>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/guide/role">Роли</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/guide/status">Статусы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/guide/source">Источники</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/guide/skill">Навыки</a>
+                </li>
+            </ul>
         </div>
         <div class="col-md-10">
             @if ($message = Session::get('success'))

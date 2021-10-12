@@ -15,7 +15,7 @@ class Worker extends Model
 
     public $timestamps = true;
 
-    protected $fillable = ['right', 'status', 'user_id'];
+    protected $fillable = ['user_id', 'status_id', 'age', 'sex', 'birthday', 'source_id', ];
 
     //public $rights = ['админ', 'пользователь', 'имеет доступ'];
 
@@ -26,10 +26,33 @@ class Worker extends Model
         return $this->hasMany('App\Models\Field', 'worker_id');
     }
 
+    public function status() {
+        return $this->hasOne('App\Models\Worker', 'status_id');
+    }
+
+    public function source() {
+        return $this->hasOne('App\Models\Worker', 'source_id');
+    }
+
     public function saveWorker($data) {
-        $this->user_id = $data['user_id'];
-        $this->right = (isset($data['right']) && $data['right']) ? $data['right'] : $this->getRight()[1];
-        $this->status = (isset($data['status']) && $data['status']) ? $data['status'] : $this->getStatus()[0];
+        $this->user_id = intval($data['user_id']);
+        $this->status_id = intval($data['status_id']);
+        $this->age = intval($data['age']);
+        $this->sex = trim(strip_tags($data['sex']));
+        $this->birthday = date('Y-m-d', strtotime($data['birthday']));
+        $this->source_id = intval($data['source_id']);
+        $this->region = trim(strip_tags($data['region']));
+        $this->phone = trim(strip_tags($data['phone']));
+        $this->email = trim(strip_tags($data['email']));
+        $this->telegram = trim(strip_tags($data['telegram']));
+        $this->watsapp = trim(strip_tags($data['watsapp']));
+        $this->vyber = trim(strip_tags($data['vyber']));
+        $this->skype = trim(strip_tags($data['skype']));
+        $this->resume = trim(strip_tags($data['resume']));
+        $this->experience = trim(strip_tags($data['experience']));
+        $this->education = trim(strip_tags($data['education']));
+        $this->skills = (is_array($data['skills'])) ? implode(',', $data['skills']) : trim(strip_tags($data['skills']));
+        dd($this);
         return $this->save();
     }
 
