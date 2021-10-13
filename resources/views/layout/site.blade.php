@@ -33,9 +33,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">Войти</a>
                     </li>
-                    <li class="nav-item">
+                    <!--li class="nav-item">
                         <a class="nav-link" href="{{ route('register') }}">Регистрация</a>
-                    </li>
+                    </li-->
                 @else
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('welcome') }}">Админ панель</a>
@@ -51,32 +51,33 @@
     <div class="row">
 
         <div class="col-md-2">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/user">Сотрудники</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/invite">Пригласить сотрудника</a>
-                </li>
-            </ul>
+
             @guest
 
             @else
-            <h3>Справочники</h3>
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/guide/role">Роли</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/guide/status">Статусы</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/guide/source">Источники</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/guide/skill">Навыки</a>
-                </li>
-            </ul>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user">Сотрудники</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/invite">Пригласить сотрудника</a>
+                    </li>
+                </ul>
+                <h3>Справочники</h3>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/guide/role">Роли</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/guide/status">Статусы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/guide/source">Источники</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/guide/skill">Навыки</a>
+                    </li>
+                </ul>
             @endif
         </div>
         <div class="col-md-10">

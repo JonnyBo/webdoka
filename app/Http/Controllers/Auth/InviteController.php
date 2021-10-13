@@ -20,7 +20,7 @@ class InviteController extends Controller {
      * Форма ввода адреса почты
      */
     public function form() {
-        if (Auth::user()->worker->right !== 'админ')
+        if (Auth::user()->role_id !== 1)
             return redirect()
                 ->route('welcome')
                 ->withErrors('Не достаточно прав для приглашения сотрудников');

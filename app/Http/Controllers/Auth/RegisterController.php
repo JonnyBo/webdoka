@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Worker;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
+use App\Models\Source;
+use App\Models\Status;
+use App\Models\Skill;
 use Hash;
 
 class RegisterController extends Controller {
@@ -26,7 +30,12 @@ class RegisterController extends Controller {
 
         //сделать проверку токена
 
-        return view('auth.register');
+        $worker = new Worker();
+        $roles = Role::all();
+        $statuses = Status::all();
+        $sources = Source::all();
+        $skills = Skill::all();
+        return view('user.create', compact('worker', 'roles', 'statuses', 'sources', 'skills'));
     }
 
     /**
@@ -43,10 +52,12 @@ class RegisterController extends Controller {
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role_id' => 2
         ]);
 
         $data = $request->all();
         $data['user_id'] = $user->id;
+        $data['status_id'] = 1;
 
         $worker = new Worker();
         if ($worker->saveWorker($data)) {

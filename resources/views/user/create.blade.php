@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>Новый Сотрудник</h1>
-    <form method="post" action="{{ route('user.store') }}">
+    <form method="post" action="@guest{{ route('create') }}@else{{ route('user.store') }}@endif">
         @csrf
         <div class="form-group">
             <input type="text" class="form-control" name="name" placeholder="Имя, Фамилия"
@@ -91,7 +91,7 @@
         <div class="form-group">
             <textarea class="form-control" name="education" placeholder="Образование"></textarea>
         </div>
-
+        @guest
         <div class="form-group">
             <select class="form-control" name="status_id">
                 <option>выберите статус</option>
@@ -100,7 +100,6 @@
                 @endforeach
             </select>
         </div>
-
         <div class="form-group">
             <select class="form-control" name="role_id">
                 <option>выберите роль</option>
@@ -109,7 +108,9 @@
                 @endforeach
             </select>
         </div>
+        @else
 
+        @endif
         <div class="form-group">
             <button type="submit" class="btn btn-info text-white">Регистрация</button>
         </div>
