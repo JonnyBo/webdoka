@@ -50,7 +50,7 @@
             <select class="form-control" name="source_id">
                 <option>выберите источник</option>
                 @foreach($sources as $source)
-                    <option value="{{ $source->id }}" {{ ($worker->worker->source->id == $source->id) ? 'selected' : '' }}>{{ $source->name }}</option>
+                    <option value="{{ $source->id }}" {{ (isset($worker->worker->source->id) && $worker->worker->source->id == $source->id) ? 'selected' : '' }}>{{ $source->name }}</option>
                 @endforeach
             </select>
         </div>

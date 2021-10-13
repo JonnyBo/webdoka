@@ -71,7 +71,7 @@ class Worker extends Model
         $model->resume = trim(strip_tags($data['resume']));
         $model->experience = trim(strip_tags($data['experience']));
         $model->education = trim(strip_tags($data['education']));
-        $model->skills = (isset($data['skills']) && $data['skills'] && is_array($data['skills'])) ? implode(',', $data['skills']) : trim(strip_tags($data['skills']));
+        $model->skills = (isset($data['skills']) && $data['skills'] && is_array($data['skills'])) ? implode(',', $data['skills']) : null;
         return $model->update();
     }
 

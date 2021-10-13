@@ -153,7 +153,11 @@ class IndexController extends Controller {
             'status_id' => 'required',
         ]);
         $data = $request->all();
-
+        if (isset($data['password']) && $data['password']) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            $data['password'] = $user->password;
+        }
         $user->update($data);
 
         $data['id'] = $user->worker->id;
