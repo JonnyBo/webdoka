@@ -57,10 +57,10 @@
             @else
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/user">Сотрудники</a>
+                        <a class="nav-link" href="/user">Кандидаты</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/invite">Пригласить сотрудника</a>
+                        <a class="nav-link" href="/invite">Пригласить кандидата</a>
                     </li>
                 </ul>
                 <h3>Справочники</h3>

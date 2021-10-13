@@ -1,9 +1,9 @@
-@extends('layout.site', ['title' => 'Сотрудники'])
+@extends('layout.site', ['title' => 'Кандидаты'])
 
 @section('content')
     <div class="row">
         <div class="col-md-6">
-            <h1>Сотрудники</h1>
+            <h1>Кандидаты</h1>
         </div>
         <div class="col-md-6">
             <a class="btn btn-success float-right" href="{{ route('user.create') }}"> Новый сотрудник</a>
