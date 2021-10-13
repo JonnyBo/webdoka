@@ -16,8 +16,9 @@ class Role extends Model
     protected $fillable = ['name'];
 
     public $timestamps = false;
-
+    /*
     public function role() {
         return $this->hasOne('App\Models\User', 'role_id');
     }
+    */
 }

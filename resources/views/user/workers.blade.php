@@ -13,8 +13,8 @@
         <div class="form-group">
             Статус:
             <select class="form-control statusFilter" name="status">
-                @foreach(\App\Models\Worker::getStatus() as $status)
-                    <option value="{{ $status }}" {{ ( $filter == $status) ? 'selected' : '' }}>{{ $status }}</option>
+                @foreach($statuses as $status)
+                    <option value="{{ $status->id }}" {{ ( $filter == $status->id) ? 'selected' : '' }}>{{ $status->name }}</option>
                 @endforeach
             </select>
         </div>
@@ -53,9 +53,9 @@
 
                         <td>{{ \Carbon\Carbon::parse($worker->created_at)->format('d.m.Y')}}</td>
 
-                        <td>{{ $worker->worker['right'] }}</td>
+                        <td>{{ $worker->role->name }}</td>
 
-                        <td>{{ $worker->worker['status'] }}</td>
+                        <td>{{ $worker->worker->status->name }}</td>
 
                         <td class="text-nowrap">
                             <a class="btn btn-primary btn-sm mr-sm-1" href="{{ route('user.edit',$worker->id) }}">Edit</a>

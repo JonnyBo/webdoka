@@ -33,12 +33,12 @@ class IndexController extends Controller {
 
     public function index(Request $request) {
         //доступ всем кроме пользователей
-        if (Auth::user()->worker->right == Worker::getRight()[1])
+        if (Auth::user()->role_id == 2)
             return redirect()
                 ->route('welcome')
                 ->withErrors('Не достаточно прав для просмотра сотрудников');
         //фильтрация
-        $work = new Worker();
+        $statuses = Status::all();
         if (isset($_COOKIE["filter"]))
             $filter = $_COOKIE["filter"];
         else
@@ -48,25 +48,19 @@ class IndexController extends Controller {
             setcookie ("filter", $data['filter'],time()+3600);
             $filter = $data['filter'];
         }
+        $allWorkers = User::all();
 
-        $workers = User::with(['worker' => function ($query) use ($filter) {
-            $query->where('workers.status_id', '=', $filter)->get();
-        }])->get();
-
-        dd($workers);
-
-        //$workers = User::with('worker')->where('status_id', $filter)->get();
-        /*
         $workers = [];
         if ($filter != '') {
             foreach ($allWorkers as $worker) {
-                if ($worker->worker->status == $filter) {
+                if ($worker->worker->status->id == $filter) {
                     $workers[] = $worker;
                 }
             }
         }
-        */
-        return view('user.workers', compact('workers', 'work', 'filter'));
+        //dd($workers);
+
+        return view('user.workers', compact('workers', 'statuses', 'filter'));
     }
 
     public function show($id)
@@ -76,7 +70,7 @@ class IndexController extends Controller {
 
     public function create() {
         //доступ админам
-        if (Auth::user()->worker->right !== Worker::getRight()[0])
+        if (Auth::user()->role_id !== 1)
             return redirect()
                 ->route('welcome')
                 ->withErrors('Не достаточно прав для создания сотрудников');
@@ -91,7 +85,7 @@ class IndexController extends Controller {
     public function store(Request $request)
     {
         //доступ админам
-        if (Auth::user()->worker->right !== Worker::getRight()[0])
+        if (Auth::user()->role_id !== 1)
             return redirect()
                 ->route('welcome')
                 ->withErrors('Не достаточно прав для сохранения сотрудников');
@@ -110,7 +104,6 @@ class IndexController extends Controller {
 
         $data = $request->all();
         $data['user_id'] = $user->id;
-
         $worker = new Worker();
         if ($worker->saveWorker($data)) {
 
@@ -124,7 +117,7 @@ class IndexController extends Controller {
 
     public function destroy(User $user) {
         //доступ админам
-        if (Auth::user()->worker->right !== Worker::getRight()[0])
+        if (Auth::user()->role_id !== 1)
             return redirect()
                 ->route('welcome')
                 ->withErrors('Не достаточно прав для удаления сотрудников');
@@ -135,24 +128,29 @@ class IndexController extends Controller {
 
     public function edit(User $user) {
         //доступ админам
-        if (Auth::user()->worker->right !== Worker::getRight()[0])
+        if (Auth::user()->role_id !== 1)
             return redirect()
                 ->route('welcome')
                 ->withErrors('Не достаточно прав для редактирования сотрудников');
-        $worker = new Worker();
-        return view('user.edit', compact('user', 'worker'));
+        $worker = $user;
+        $roles = Role::all();
+        $statuses = Status::all();
+        $sources = Source::all();
+        $skills = Skill::all();
+        return view('user.edit', compact('worker', 'roles', 'statuses', 'sources', 'skills'));
     }
 
     public function update(Request $request, User $user) {
         //доступ админам
-        if (Auth::user()->worker->right !== Worker::getRight()[0])
+        if (Auth::user()->role_id !== 1)
             return redirect()
                 ->route('welcome')
                 ->withErrors('Не достаточно прав для обновления сотрудников');
         $request->validate([
-            'name' => 'required',
-            'right' => 'required',
-            'status' => 'required',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'role_id' => 'required',
+            'status_id' => 'required',
         ]);
         $data = $request->all();
 

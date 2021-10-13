@@ -5,9 +5,15 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Field;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FieldController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,6 +42,11 @@ class FieldController extends Controller
      */
     public function store(Request $request)
     {
+        //доступ админам
+        if (Auth::user()->role_id !== 1)
+            return redirect()
+                ->route('welcome')
+                ->withErrors('Не достаточно прав для добавления полей');
         //сохраняем новое поле для сотрудника
         $request->validate([
             'label' => 'required|string|max:255',
@@ -97,6 +108,11 @@ class FieldController extends Controller
      */
     public function destroy(Field $field)
     {
+        //доступ админам
+        if (Auth::user()->role_id !== 1)
+            return redirect()
+                ->route('welcome')
+                ->withErrors('Не достаточно прав для удаления полей');
         return $field->delete();
     }
 }

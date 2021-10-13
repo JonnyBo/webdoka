@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -50,9 +51,14 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Worker', 'user_id');
     }
 
+    public function role()
+    {
+        return $this->hasOne('App\Models\Role', 'id', 'role_id');
+    }
+
     public function delete() {
         //dd($this->worker);
-        Field::where('worker_id', $this->worker->id)->delete();
+        //Field::where('worker_id', $this->worker->id)->delete();
         $this->worker()->delete();
         return parent::delete();
     }

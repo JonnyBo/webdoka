@@ -15,7 +15,7 @@ class Worker extends Model
 
     public $timestamps = true;
 
-    protected $fillable = ['user_id', 'status_id', 'age', 'sex', 'birthday', 'source_id', ];
+    protected $fillable = ['user_id', 'status_id', 'age', 'sex', 'birthday', 'source_id', 'region', 'phone', 'telegram', 'watsapp', 'vyber', 'skype', 'resume', 'experience', 'education', 'skills'];
 
     //public $rights = ['админ', 'пользователь', 'имеет доступ'];
 
@@ -27,11 +27,11 @@ class Worker extends Model
     }
 
     public function status() {
-        return $this->hasOne('App\Models\Worker', 'status_id');
+        return $this->hasOne('App\Models\Status', 'id', 'status_id');
     }
 
     public function source() {
-        return $this->hasOne('App\Models\Worker', 'source_id');
+        return $this->hasOne('App\Models\Source', 'id', 'source_id');
     }
 
     public function saveWorker($data) {
@@ -43,7 +43,6 @@ class Worker extends Model
         $this->source_id = intval($data['source_id']);
         $this->region = trim(strip_tags($data['region']));
         $this->phone = trim(strip_tags($data['phone']));
-        $this->email = trim(strip_tags($data['email']));
         $this->telegram = trim(strip_tags($data['telegram']));
         $this->watsapp = trim(strip_tags($data['watsapp']));
         $this->vyber = trim(strip_tags($data['vyber']));
@@ -51,16 +50,28 @@ class Worker extends Model
         $this->resume = trim(strip_tags($data['resume']));
         $this->experience = trim(strip_tags($data['experience']));
         $this->education = trim(strip_tags($data['education']));
-        $this->skills = (is_array($data['skills'])) ? implode(',', $data['skills']) : trim(strip_tags($data['skills']));
-        dd($this);
+        $this->skills = (isset($data['skills']) && $data['skills'] && is_array($data['skills'])) ? implode(',', $data['skills']) : trim(strip_tags($data['skills']));
         return $this->save();
     }
 
     public function updateWorker($data) {
         $model = Worker::find($data['id']);
-        $model->user_id = $data['user_id'];
-        $model->right = (isset($data['right']) && $data['right']) ? $data['right'] : $this->getRight()[1];
-        $model->status = (isset($data['status']) && $data['status']) ? $data['status'] : $this->getStatus()[0];
+        $model->user_id = intval($data['user_id']);
+        $model->status_id = intval($data['status_id']);
+        $model->age = intval($data['age']);
+        $model->sex = trim(strip_tags($data['sex']));
+        $model->birthday = date('Y-m-d', strtotime($data['birthday']));
+        $model->source_id = intval($data['source_id']);
+        $model->region = trim(strip_tags($data['region']));
+        $model->phone = trim(strip_tags($data['phone']));
+        $model->telegram = trim(strip_tags($data['telegram']));
+        $model->watsapp = trim(strip_tags($data['watsapp']));
+        $model->vyber = trim(strip_tags($data['vyber']));
+        $model->skype = trim(strip_tags($data['skype']));
+        $model->resume = trim(strip_tags($data['resume']));
+        $model->experience = trim(strip_tags($data['experience']));
+        $model->education = trim(strip_tags($data['education']));
+        $model->skills = (isset($data['skills']) && $data['skills'] && is_array($data['skills'])) ? implode(',', $data['skills']) : trim(strip_tags($data['skills']));
         return $model->update();
     }
 
