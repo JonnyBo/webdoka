@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class GuideController extends Controller
@@ -14,7 +15,11 @@ class GuideController extends Controller
      */
     public function status()
     {
-        //
+        //доступ админам
+        if (Auth::user()->role_id !== 1)
+            return redirect()
+                ->route('welcome')
+                ->withErrors('Не достаточно прав для удаления сотрудников');
         $items = DB::table('statuses')->get();
         $guide = ['name' => 'Статусы', 'table' => 'statuses'];
         return view('guide.index', compact('items', 'guide'));
@@ -27,6 +32,11 @@ class GuideController extends Controller
      */
     public function source()
     {
+        //доступ админам
+        if (Auth::user()->role_id !== 1)
+            return redirect()
+                ->route('welcome')
+                ->withErrors('Не достаточно прав для удаления сотрудников');
         $items = DB::table('sources')->get();
         $guide = ['name' => 'Источники', 'table' => 'sources'];
         return view('guide.index', compact('items', 'guide'));
@@ -39,6 +49,11 @@ class GuideController extends Controller
      */
     public function role()
     {
+        //доступ админам
+        if (Auth::user()->role_id !== 1)
+            return redirect()
+                ->route('welcome')
+                ->withErrors('Не достаточно прав для удаления сотрудников');
         $items = DB::table('roles')->get();
         $guide = ['name' => 'Роли', 'table' => 'roles'];
         return view('guide.index', compact('items', 'guide'));
@@ -46,6 +61,11 @@ class GuideController extends Controller
 
     public function skill()
     {
+        //доступ админам
+        if (Auth::user()->role_id !== 1)
+            return redirect()
+                ->route('welcome')
+                ->withErrors('Не достаточно прав для удаления сотрудников');
         $items = DB::table('skills')->get();
         $guide = ['name' => 'Навыки', 'table' => 'skills'];
         return view('guide.index', compact('items', 'guide'));
@@ -58,6 +78,11 @@ class GuideController extends Controller
      */
     public function create(Request $request)
     {
+        //доступ админам
+        if (Auth::user()->role_id !== 1)
+            return redirect()
+                ->route('welcome')
+                ->withErrors('Не достаточно прав для удаления сотрудников');
         $data = $request->all();
         if (!$data['table'] || !$data['name'])
             return redirect()->route('welcome')->withErrors('Не переданы параметры');
@@ -110,6 +135,11 @@ class GuideController extends Controller
      */
     public function update(Request $request)
     {
+        //доступ админам
+        if (Auth::user()->role_id !== 1)
+            return redirect()
+                ->route('welcome')
+                ->withErrors('Не достаточно прав для удаления сотрудников');
         $data = $request->all();
         if (!$data['table'] || !$data['name'] || !$data['id'])
             return redirect()->route('welcome')->withErrors('Не переданы параметры');
@@ -128,6 +158,11 @@ class GuideController extends Controller
      */
     public function destroy(Request $request)
     {
+        //доступ админам
+        if (Auth::user()->role_id !== 1)
+            return redirect()
+                ->route('welcome')
+                ->withErrors('Не достаточно прав для удаления сотрудников');
         $data = $request->all();
         if (!$data['table'] || !$data['id'])
             return redirect()->route('welcome')->withErrors('Не переданы параметры');

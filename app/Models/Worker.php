@@ -50,7 +50,7 @@ class Worker extends Model
         $this->resume = trim(strip_tags($data['resume']));
         $this->experience = trim(strip_tags($data['experience']));
         $this->education = trim(strip_tags($data['education']));
-        $this->skills = (isset($data['skills']) && $data['skills'] && is_array($data['skills'])) ? implode(',', $data['skills']) : trim(strip_tags($data['skills']));
+        $this->skills = (isset($data['skills']) && $data['skills'] && is_array($data['skills'])) ? implode(',', $data['skills']) : null;
         return $this->save();
     }
 

@@ -59,6 +59,9 @@
                     <a class="nav-link" href="/invite">Пригласить сотрудника</a>
                 </li>
             </ul>
+            @guest
+
+            @else
             <h3>Справочники</h3>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -74,6 +77,7 @@
                     <a class="nav-link" href="/guide/skill">Навыки</a>
                 </li>
             </ul>
+            @endif
         </div>
         <div class="col-md-10">
             @if ($message = Session::get('success'))
