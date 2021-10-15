@@ -15,7 +15,7 @@ class Worker extends Model
 
     public $timestamps = true;
 
-    protected $fillable = ['user_id', 'status_id', 'age', 'sex', 'birthday', 'source_id', 'region', 'phone', 'telegram', 'watsapp', 'vyber', 'skype', 'resume', 'experience', 'education', 'skills'];
+    protected $fillable = ['user_id', 'status_id', /*'age',*/ 'sex', 'birthday', 'source_id', 'region', 'phone', 'telegram', 'watsapp', 'vyber', 'skype', 'resume', 'experience', 'education', 'skills'];
 
     //public $rights = ['админ', 'пользователь', 'имеет доступ'];
 
@@ -37,7 +37,7 @@ class Worker extends Model
     public function saveWorker($data) {
         $this->user_id = intval($data['user_id']);
         $this->status_id = intval($data['status_id']);
-        $this->age = intval($data['age']);
+        //$this->age = intval($data['age']);
         $this->sex = trim(strip_tags($data['sex']));
         $this->birthday = date('Y-m-d', strtotime($data['birthday']));
         $this->source_id = intval($data['source_id']);
@@ -58,7 +58,7 @@ class Worker extends Model
         $model = Worker::find($data['id']);
         $model->user_id = intval($data['user_id']);
         $model->status_id = intval($data['status_id']);
-        $model->age = intval($data['age']);
+        //$model->age = intval($data['age']);
         $model->sex = trim(strip_tags($data['sex']));
         $model->birthday = date('Y-m-d', strtotime($data['birthday']));
         $model->source_id = intval($data['source_id']);
@@ -73,6 +73,10 @@ class Worker extends Model
         $model->education = trim(strip_tags($data['education']));
         $model->skills = (isset($data['skills']) && $data['skills'] && is_array($data['skills'])) ? implode(',', $data['skills']) : null;
         return $model->update();
+    }
+
+    public static function getAge($birth) {
+        return intval(date('Y', time() - strtotime($birth))) - 1970;
     }
 
     public static function getRight() {

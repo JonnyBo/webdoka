@@ -13,27 +13,27 @@
                    required maxlength="255" value="{{ old('email') ?? '' }}">
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" name="password" placeholder="Придумайте пароль"
+            <input type="password" class="form-control" name="password" placeholder="Придумайте пароль"
                    required maxlength="255" value="">
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" name="password_confirmation"
+            <input type="password" class="form-control" name="password_confirmation"
                    placeholder="Пароль еще раз" required maxlength="255" value="">
         </div>
 
         <div class="form-group">
             <div class="row">
-                <div class="col-md-4">
+                <!--div class="col-md-4">
                     <input type="number" class="form-control" name="age" placeholder="Возраст" maxlength="3" value="">
-                </div>
-                <div class="col-md-4">
+                </div-->
+                <div class="col-md-6">
                     <select class="form-control" name="sex">
                         <option>выберите пол</option>
                         <option value="М">М</option>
                         <option value="Ж">Ж</option>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <input type="date" class="form-control" name="birthday" placeholder="Дата рождения" value="">
                 </div>
             </div>
