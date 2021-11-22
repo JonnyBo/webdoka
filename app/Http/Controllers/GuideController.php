@@ -13,21 +13,23 @@ class GuideController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function status()
-    {
+
+    public function index() {
         //доступ админам
         if (Auth::user()->role_id !== 1)
             return redirect()
                 ->route('welcome')
-                ->withErrors('Не достаточно прав для удаления сотрудников');
+                ->withErrors('Не достаточно прав');
+        $guids = [];
+        $items = DB::table('roles')->get();
+        $guids[] = ['name' => 'Роли', 'table' => 'roles', 'items' => $items];
         $items = DB::table('statuses')->get();
-        $guide = ['name' => 'Статусы', 'table' => 'statuses'];
-        return view('guide.index', compact('items', 'guide'));
+        $guids[] = ['name' => 'Статусы', 'table' => 'statuses', 'items' => $items];
+        $items = DB::table('sources')->get();
+        $guids[] = ['name' => 'Источники', 'table' => 'sources', 'items' => $items];
+        $items = DB::table('skills')->get();
+        $guids[] = ['name' => 'Навыки', 'table' => 'skills', 'items' => $items];
+        return view('guide.index', compact('guids'));
     }
 
     /**
@@ -35,7 +37,31 @@ class GuideController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function source()
+    /*public function status()
+    {
+        //доступ админам
+        if (Auth::user()->role_id !== 1)
+            return redirect()
+                ->route('welcome')
+                ->withErrors('Не достаточно прав для удаления сотрудников');
+        $guids = [];
+        $items = DB::table('roles')->get();
+        $guids[] = ['name' => 'Роли', 'table' => 'roles', 'items' => $items];
+        $items = DB::table('statuses')->get();
+        $guids[] = ['name' => 'Статусы', 'table' => 'statuses', 'items' => $items];
+        $items = DB::table('sources')->get();
+        $guids[] = ['name' => 'Источники', 'table' => 'sources', 'items' => $items];
+        $items = DB::table('skills')->get();
+        $guids[] = ['name' => 'Навыки', 'table' => 'skills', 'items' => $items];
+        return view('guide.index', compact('guids'));
+    }*/
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    /*public function source()
     {
         //доступ админам
         if (Auth::user()->role_id !== 1)
@@ -45,14 +71,14 @@ class GuideController extends Controller
         $items = DB::table('sources')->get();
         $guide = ['name' => 'Источники', 'table' => 'sources'];
         return view('guide.index', compact('items', 'guide'));
-    }
+    }*/
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function role()
+    /*public function role()
     {
         //доступ админам
         if (Auth::user()->role_id !== 1)
@@ -62,9 +88,9 @@ class GuideController extends Controller
         $items = DB::table('roles')->get();
         $guide = ['name' => 'Роли', 'table' => 'roles'];
         return view('guide.index', compact('items', 'guide'));
-    }
+    }*/
 
-    public function skill()
+    /*public function skill()
     {
         //доступ админам
         if (Auth::user()->role_id !== 1)
@@ -74,7 +100,7 @@ class GuideController extends Controller
         $items = DB::table('skills')->get();
         $guide = ['name' => 'Навыки', 'table' => 'skills'];
         return view('guide.index', compact('items', 'guide'));
-    }
+    }*/
 
     /**
      * Show the form for creating a new resource.
@@ -94,8 +120,8 @@ class GuideController extends Controller
         $table = trim(strip_tags($data['table']));
         $result = DB::table($table)->insert(['name' => trim(strip_tags($data['name']))]);
         if (!$result)
-            return redirect()->route('guide.' . $table)->withErrors('Не удалось добавить значение');
-        return redirect()->route('guide.' . $table)->with('success','Значение успешно добавлено');
+            return redirect()->route('guide')->withErrors('Не удалось добавить значение');
+        return redirect()->route('guide')->with('success','Значение успешно добавлено');
     }
 
     /**

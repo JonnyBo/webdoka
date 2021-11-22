@@ -19,13 +19,13 @@ Route::resource('field', App\Http\Controllers\User\FieldController::class);
 
 //справочники
 //роли
-Route::get('guide/role', 'App\Http\Controllers\GuideController@role')->name('guide.roles');
+Route::get('guide', 'App\Http\Controllers\GuideController@index')->name('guide');
 //источники
-Route::get('guide/source', 'App\Http\Controllers\GuideController@source')->name('guide.sources');
+//Route::get('guide/source', 'App\Http\Controllers\GuideController@source')->name('guide.sources');
 //статусы
-Route::get('guide/status', 'App\Http\Controllers\GuideController@status')->name('guide.statuses');
+//Route::get('guide/status', 'App\Http\Controllers\GuideController@status')->name('guide.statuses');
 //навыки
-Route::get('guide/skill', 'App\Http\Controllers\GuideController@skill')->name('guide.skills');
+//Route::get('guide/skill', 'App\Http\Controllers\GuideController@skill')->name('guide.skills');
 //добавление нового
 Route::post('guide/create', 'App\Http\Controllers\GuideController@create')->name('guide.create');
 //обновление

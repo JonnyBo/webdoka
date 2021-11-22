@@ -1,68 +1,79 @@
 @extends('layout.site', ['title' => 'Админ панель'])
 
 @section('content')
-    <h1>{{ $guide['name'] }}</h1>
-    <div class="row">
-        @if(!empty($items))
-            <table class="table table-bordered">
 
-                <tr>
+    <section class="candidates">
+        <h2 class="candidates__heading heading">Настройки</h2>
+    </section>
 
-                    <th>№</th>
+    <section class="tabs">
+        <ul class="tabs__list">
+            @foreach($guids as $key => $guid)
+            <li class="tabs__item"><button class="tabs__btn @if($key == 0) tabs__btn--active @endif" data-tabs-path="<?=$guid['table']?>"><?=$guid['name']?></button></li>
+            @endforeach
+            <!--li class="tabs__item"><button class="tabs__btn" data-tabs-path="status">Статусы</button></li>
+            <li class="tabs__item"><button class="tabs__btn" data-tabs-path="source">Источники</button></li>
+            <li class="tabs__item"><button class="tabs__btn" data-tabs-path="skill">Навыки</button></li-->
+        </ul>
+        @foreach($guids as $key => $guid)
+        <div class="tabs__content @if($key == 0) tabs__content--active @endif" data-tabs-target="<?=$guid['table']?>">
+            <div class="content">
+                <form method="post" action="{{ route('guide.create') }}">
+                    <input type="hidden" name="table" value="{{ $guid['table'] }}">
+                    @csrf
+                    <label class="content__label label" for="name">Добавить</label>
+                    <input class="content__input input" type="text" id="name" name="name" placeholder="Введите название" required />
+                    <button class="content__btn button">Добавить</button>
+                </form>
 
-                    <th>Наименование</th>
-
-                </tr>
-                @foreach($items as $key => $item)
-
-                <tr>
-
-                    <td>{{ ++$key }}</td>
-
-                    <td>
-                        <form action="{{ route('guide.update') }}" method="POST" class="btn">
-                            @csrf
-                            <input type="hidden" name="table" value="{{ $guide['table'] }}">
-                            <input type="hidden" name="id" value="{{ $item->id }}">
-                            <input style="width: 500px;" type="text" name="name" value="{{ $item->name }}">
-                            <button type="submit" class="btn btn-primary btn-sm mr-sm-1">Update</button>
-                        </form>
-                        <form action="{{ route('guide.destroy',$item->id) }}" method="POST" class="btn">
-                            @csrf
-                            <input type="hidden" name="id" value="{{ $item->id }}">
-                            <input type="hidden" name="table" value="{{ $guide['table'] }}">
-                            <button type="submit" class="btn btn-danger btn-sm mr-sm-1">Delete</button>
-                        </form>
-
-                    </td>
-
-                </tr>
-
-                @endforeach
-
-            </table>
-
-        @endif
-
-    </div>
-
-    <div class="row">
-        <form method="post" action="{{ route('guide.create') }}">
-            <input type="hidden" name="table" value="{{ $guide['table'] }}">
-            @csrf
-            <h2>Добавить значение</h2>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="name" placeholder="Значение"
-                               required maxlength="255">
+                <section class="selection">
+                    <div class="selection__container">
+                        @if(!empty($guid['items']))
+                        <table class="selection__table">
+                            <tbody>
+                            <tr class="selection__block">
+                                <td>
+                                    <input class="radio__input" type="radio" name="target" id="number">
+                                    <label class="radio__label" for="number">№</label>
+                                </td>
+                                <td class="selection__text">Наименование</td>
+                                <td class="selection__none"></td>
+                                <td class="selection__none"></td>
+                            </tr>
+                            @foreach($guid['items'] as $k => $item)
+                            <tr class="selection__item">
+                                <td>
+                                    <input class="radio__input" type="radio" name="target[<?=$item->id?>]" id="one_<?=$item->id?>" checked>
+                                    <label class="radio__label" for="one_<?=$item->id?>"><?=++$k?></label>
+                                </td>
+                                <td class="selection__text"><?=$item->name?></td>
+                                <td class="selection__text">
+                                    <form action="{{ route('guide.update') }}" method="POST" class="btn">
+                                        @csrf
+                                        <input type="hidden" name="table" value="{{ $guid['table'] }}">
+                                        <input type="hidden" name="id" value="{{ $item->id }}">
+                                        <input style="width: 500px;" type="text" name="name" value="{{ $item->name }}">
+                                        <button type="submit" class="selection__pencil selection__button"></button>
+                                    </form>
+                                </td>
+                                <td class="selection__text">
+                                    <form action="{{ route('guide.destroy',$item->id) }}" method="POST" class="btn">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $item->id }}">
+                                        <input type="hidden" name="table" value="{{ $guid['table'] }}">
+                                        <button type="submit" class="selection__delete selection__button"></button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                        @endif
                     </div>
-                </div>
+                </section>
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-info text-white">Добавить</button>
-            </div>
-        </form>
-    </div>
+        </div>
+        @endforeach
+    </section>
 
 @endsection
