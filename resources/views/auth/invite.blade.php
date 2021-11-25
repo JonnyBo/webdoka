@@ -1,7 +1,7 @@
 @extends('layout.site', ['title' => 'Приглашение на регистрацию'])
 
 @section('content')
-    
+
     <section class="candidates">
         <h2 class="candidates__heading heading">Пригласить пользователя</h2>
     </section>

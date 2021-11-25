@@ -15,7 +15,7 @@
     <link rel="preload" href="/fonts/ubuntubold.woff" as="font">
 
     <!--link href="{{ asset('css/app.css') }}" rel="stylesheet"-->
-    <link href="{{ asset('css/style.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 </head>
 
