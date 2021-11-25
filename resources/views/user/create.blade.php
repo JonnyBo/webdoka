@@ -119,13 +119,38 @@
                 </div>
             </div>
         </section>
+        @guest
+
+        @else
+        <h2 class="head">Служебные данные</h2>
+        <section class="skill">
+            <div class="skill__unit">
+                <div class="skill__part">
+                    <label class="skill__label label" for="status_id">Статус</label>
+                    <select class="skill__input input" name="status_id" id="status_id">
+                        <option>выберите статус</option>
+                        @foreach($statuses as $status)
+                            <option value="{{ $status->id }}">{{ $status->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="skill__part">
+                    <label class="skill__label label" for="role_id">Роль</label>
+                    <select class="skill__input input" name="role_id" id="role_id">
+                        <option>выберите роль</option>
+                        @foreach($roles as $role)
+                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </section>
+        @endif
     </div>
 
     <section class="registration">
         <button type="submit" class="registration__btn button">Зарегистрировать сотрудника</button>
     </section>
-
-        <input type="hidden" name="role_id" value="2">
 
     </form>
 
