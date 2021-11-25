@@ -177,8 +177,8 @@ class GuideController extends Controller
         $table = trim(strip_tags($data['table']));
         $result = DB::table($table)->where('id', intval($data['id']))->update(['name' => trim(strip_tags($data['name']))]);
         if (!$result)
-            return redirect()->route('guide.' . $table)->withErrors('Не удалось обновить значение');
-        return redirect()->route('guide.' . $table)->with('success','Значение успешно обновлено');
+            return redirect()->route('guide')->withErrors('Не удалось обновить значение');
+        return redirect()->route('guide')->with('success','Значение успешно обновлено');
     }
 
     /**
@@ -200,7 +200,7 @@ class GuideController extends Controller
         $table = trim(strip_tags($data['table']));
         $result = DB::table($table)->where('id', intval($data['id']))->delete();
         if (!$result)
-            return redirect()->route('guide.' . $table)->withErrors('Не удалось удалить значение');
-        return redirect()->route('guide.' . $table)->with('success','Значение успешно удалено');
+            return redirect()->route('guide')->withErrors('Не удалось удалить значение');
+        return redirect()->route('guide')->with('success','Значение успешно удалено');
     }
 }

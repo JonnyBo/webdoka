@@ -53,7 +53,7 @@ class IndexController extends Controller {
         $workers = [];
         if ($filter != '') {
             foreach ($allWorkers as $worker) {
-                if ($worker->worker->status->id == $filter) {
+                if (isset($worker->worker->status) && $worker->worker->status->id == $filter) {
                     $workers[] = $worker;
                 }
             }

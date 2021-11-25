@@ -36,11 +36,11 @@ class Worker extends Model
 
     public function saveWorker($data) {
         $this->user_id = intval($data['user_id']);
-        $this->status_id = intval($data['status_id']);
+        $this->status_id = (isset($data['status_id']) && $data['status_id']) ? intval($data['status_id']) : 1;
         //$this->age = intval($data['age']);
         $this->sex = trim(strip_tags($data['sex']));
         $this->birthday = date('Y-m-d', strtotime($data['birthday']));
-        $this->source_id = intval($data['source_id']);
+        $this->source_id = (isset($data['source_id']) && $data['source_id']) ? intval($data['source_id']) : null;
         $this->region = trim(strip_tags($data['region']));
         $this->phone = trim(strip_tags($data['phone']));
         $this->telegram = trim(strip_tags($data['telegram']));
@@ -57,11 +57,11 @@ class Worker extends Model
     public function updateWorker($data) {
         $model = Worker::find($data['id']);
         $model->user_id = intval($data['user_id']);
-        $model->status_id = intval($data['status_id']);
+        $model->status_id = (isset($data['status_id']) && $data['status_id']) ? intval($data['status_id']) : 1;
         //$model->age = intval($data['age']);
         $model->sex = trim(strip_tags($data['sex']));
         $model->birthday = date('Y-m-d', strtotime($data['birthday']));
-        $model->source_id = intval($data['source_id']);
+        $model->source_id = (isset($data['source_id']) && $data['source_id']) ? intval($data['source_id']) : null;
         $model->region = trim(strip_tags($data['region']));
         $model->phone = trim(strip_tags($data['phone']));
         $model->telegram = trim(strip_tags($data['telegram']));

@@ -43,16 +43,16 @@
                             @foreach($guid['items'] as $k => $item)
                             <tr class="selection__item">
                                 <td>
-                                    <input class="radio__input" type="radio" name="target[<?=$item->id?>]" id="one_<?=$item->id?>" checked>
-                                    <label class="radio__label" for="one_<?=$item->id?>"><?=++$k?></label>
+                                    <input class="radio__input" type="radio" name="target_{{ $guid['table'] }}[{{ $item->id }}]" id="one_{{ $guid['table'] }}_{{ $item->id }}">
+                                    <label class="radio__label" for="one_{{ $guid['table'] }}_{{ $item->id }}">{{ ++$k }}</label>
                                 </td>
-                                <td class="selection__text"><?=$item->name?></td>
+                                <td class="selection__text">{{ $item->name }}</td>
                                 <td class="selection__text">
                                     <form action="{{ route('guide.update') }}" method="POST" class="btn">
                                         @csrf
                                         <input type="hidden" name="table" value="{{ $guid['table'] }}">
                                         <input type="hidden" name="id" value="{{ $item->id }}">
-                                        <input style="width: 500px;" type="text" name="name" value="{{ $item->name }}">
+                                        <input style="width: 500px; display: none;" type="text" name="name" value="{{ $item->name }}">
                                         <button type="submit" class="selection__pencil selection__button"></button>
                                     </form>
                                 </td>

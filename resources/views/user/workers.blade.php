@@ -65,8 +65,8 @@
                                 <tr>
 
                                     <td>
-                                        <input class="radio__input" type="radio" name="target" id="one" checked>
-                                        <label class="radio__label" for="one">{{ ++$key }}</label>
+                                        <input class="radio__input" type="radio" name="target[{{ $worker->id }}]" id="one_{{ $worker->id }}">
+                                        <label class="radio__label" for="one_{{ $worker->id }}">{{ ++$key }}</label>
                                     </td>
 
                                     <td class="selection__text">{{ $worker->name }}</td>

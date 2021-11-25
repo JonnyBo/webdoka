@@ -7,12 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title ?? env('APP_NAME') }}</title>
 
-    <link rel="preload" href="fonts/ubunturegular.woff2" as="font">
-    <link rel="preload" href="fonts/ubunturegular.woff" as="font">
-    <link rel="preload" href="fonts/ubuntumedium.woff2" as="font">
-    <link rel="preload" href="fonts/ubuntumedium.woff" as="font">
-    <link rel="preload" href="fonts/ubuntubold.woff2" as="font">
-    <link rel="preload" href="fonts/ubuntubold.woff" as="font">
+    <link rel="preload" href="/fonts/ubunturegular.woff2" as="font">
+    <link rel="preload" href="/fonts/ubunturegular.woff" as="font">
+    <link rel="preload" href="/fonts/ubuntumedium.woff2" as="font">
+    <link rel="preload" href="/fonts/ubuntumedium.woff" as="font">
+    <link rel="preload" href="/fonts/ubuntubold.woff2" as="font">
+    <link rel="preload" href="/fonts/ubuntubold.woff" as="font">
 
     <!--link href="{{ asset('css/app.css') }}" rel="stylesheet"-->
     <link href="{{ asset('css/style.min.css') }}" rel="stylesheet">
@@ -24,7 +24,7 @@
     <header class="page-header">
         <a class="page-header__logo">
             <picture>
-                <img class="page-header__logo-image" src="img/logo@1x.png" srcset="./img/logo@2x.png 2x" width="175" height="44"
+                <img class="page-header__logo-image" src="/img/logo@1x.png" srcset="./img/logo@2x.png 2x" width="175" height="44"
                      alt="Логотип">
             </picture>
         </a>
@@ -34,7 +34,7 @@
                 <li class="site-list__item">
                     <a href="/user" class="site-list__link {{ request()->is('user') ? 'site-list__link--active' : '' }}">
                         <svg class="site-list__svg" width="22" height="22">
-                            <use xlink:href="./img/sprite.svg#users">
+                            <use xlink:href="/img/sprite.svg#users">
                             </use>
                         </svg>
                         Кандидаты
@@ -43,7 +43,7 @@
                 <li class="site-list__item">
                     <a href="/invite" class="site-list__link {{ request()->is('invite') ? 'site-list__link--active' : '' }}">
                         <svg class="site-list__svg" width="22" height="22">
-                            <use xlink:href="./img/sprite.svg#add">
+                            <use xlink:href="/img/sprite.svg#add">
                             </use>
                         </svg>
                         Пригласить кандидата
@@ -52,7 +52,7 @@
                 <li class="site-list__item">
                     <a href="/guide" class="site-list__link {{ request()->is('guide') ? 'site-list__link--active' : '' }}">
                         <svg class="site-list__svg" width="22" height="22">
-                            <use xlink:href="./img/sprite.svg#settings">
+                            <use xlink:href="/img/sprite.svg#settings">
                             </use>
                         </svg>
                         Настройки
@@ -62,7 +62,7 @@
                     <li class="site-list__item">
                         <a href="{{ route('login') }}" class="site-list__link site-list__link--output">
                             <svg class="site-list__svg" width="22" height="22">
-                                <use xlink:href="./img/sprite.svg#output">
+                                <use xlink:href="/img/sprite.svg#output">
                                 </use>
                             </svg>
                             Войти
@@ -78,7 +78,7 @@
                     <li class="site-list__item">
                         <a href="{{ route('logout') }}" class="site-list__link site-list__link--output">
                             <svg class="site-list__svg" width="22" height="22">
-                                <use xlink:href="./img/sprite.svg#output">
+                                <use xlink:href="/img/sprite.svg#output">
                                 </use>
                             </svg>
                             Выйти
