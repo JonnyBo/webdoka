@@ -14,7 +14,8 @@
     <link rel="preload" href="/fonts/ubuntubold.woff2" as="font">
     <link rel="preload" href="/fonts/ubuntubold.woff" as="font">
 
-    <!--link href="{{ asset('css/app.css') }}" rel="stylesheet"-->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 </head>
@@ -31,6 +32,7 @@
 
         <nav class="main-nav">
             <ul class="main-nav__list site-list">
+                @auth
                 <li class="site-list__item">
                     <a href="/user" class="site-list__link {{ request()->is('user') ? 'site-list__link--active' : '' }}">
                         <svg class="site-list__svg" width="22" height="22">
@@ -58,6 +60,7 @@
                         Настройки
                     </a>
                 </li>
+                @endif
                 @guest
                     <li class="site-list__item">
                         <a href="{{ route('login') }}" class="site-list__link site-list__link--output">
@@ -120,8 +123,9 @@
             </div>
 
     </main>
-    <!--script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/site.js') }}"></script-->
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ asset('js/site.js') }}"></script>
     <script src="{{ asset('js/script.js') }}"></script>
 </body>
 </html>

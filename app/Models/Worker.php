@@ -15,7 +15,7 @@ class Worker extends Model
 
     public $timestamps = true;
 
-    protected $fillable = ['user_id', 'status_id', /*'age',*/ 'sex', 'birthday', 'source_id', 'region', 'phone', 'telegram', 'watsapp', 'vyber', 'skype', 'resume', 'experience', 'education', 'skills'];
+    protected $fillable = ['user_id', 'status_id', /*'age',*/ 'sex', 'birthday', 'source_id', 'region', 'phone', 'telegram', 'watsapp', 'vyber', 'skype', 'resume', 'experience', 'education', 'skills', 'photo'];
 
     //public $rights = ['админ', 'пользователь', 'имеет доступ'];
 
@@ -51,6 +51,7 @@ class Worker extends Model
         $this->experience = trim(strip_tags($data['experience']));
         $this->education = trim(strip_tags($data['education']));
         $this->skills = (isset($data['skills']) && $data['skills'] && is_array($data['skills'])) ? implode(',', $data['skills']) : null;
+        $this->photo = (isset($data['photo']) && $data['photo']) ? $data['photo'] : null;
         return $this->save();
     }
 
@@ -72,6 +73,9 @@ class Worker extends Model
         $model->experience = trim(strip_tags($data['experience']));
         $model->education = trim(strip_tags($data['education']));
         $model->skills = (isset($data['skills']) && $data['skills'] && is_array($data['skills'])) ? implode(',', $data['skills']) : null;
+        if (isset($data['photo']) && $data['photo']) {
+            $model->photo = $data['photo'];
+        }
         return $model->update();
     }
 

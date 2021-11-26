@@ -6,7 +6,7 @@
         <h2 class="candidates__heading heading">Новый сотрудник</h2>
     </section>
 
-    <form method="post" action="@guest{{ route('create') }}@else{{ route('user.store') }}@endif">
+    <form method="post" action="@guest{{ route('create') }}@else{{ route('user.store') }}@endif" enctype="multipart/form-data">
         @csrf
 
     <div class="container">
@@ -41,7 +41,8 @@
             </div>
             <div class="personal__block">
                 <p class="personal__photo">Фотография</p>
-                <button class="personal__btn">Добавить фото</button>
+                <input type="file" name="photo" class="personal_photo personal__btn">
+                <!--button class="personal__btn">Добавить фото</button-->
             </div>
         </section>
 
@@ -108,12 +109,9 @@
                 </div>
                 <div class="skill__part">
                     <label class="skill__label label" for="skills">Выберите навыки</label>
-                    <select class="skill__input input" name="skills[]" id="skills" multiple>
-                        <option>выберите навыки</option>
-                        @foreach($skills as $skill)
-                            <option value="{{ $skill->id }}">{{ $skill->name }}</option>
-                        @endforeach
-                    </select>
+                    @foreach($skills as $skill)
+                        <div><input type="checkbox" name="skills[]" value="{{ $skill->id }}"><span class="pl-1">{{ $skill->name }}</span></div>
+                    @endforeach
                     <!--input class="skill__input input" type="text" id="experience" name="name" placeholder=""
                            required-->
                 </div>

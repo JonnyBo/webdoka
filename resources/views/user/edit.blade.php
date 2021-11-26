@@ -10,7 +10,7 @@
 
     <div class="container">
 
-        {{ Form::open(array('url' => route('user.update', $worker->id), 'method' => 'PUT', 'class'=>'col-md-12')) }}
+        {{ Form::open(array('url' => route('user.update', $worker->id), 'method' => 'PUT', 'class'=>'col-md-12',  'enctype' => "multipart/form-data")) }}
             @method('put')
             @csrf
 
@@ -44,7 +44,7 @@
             </div>
             <div class="personal__block">
                 <p class="personal__photo">Фотография</p>
-                <button class="personal__btn">Добавить фото</button>
+                <input type="file" name="photo" class="personal_photo personal__btn" @if($worker->worker->photo) style="background-image: url({{ url('storage/'.$worker->worker->photo) }})" @endif>
             </div>
         </section>
 

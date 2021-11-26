@@ -407,6 +407,8 @@ template {
 .label {
   font-size: 14px;
   line-height: 20px;
+    display: block;
+    margin: 0;
 }
 
 .input {
@@ -420,11 +422,12 @@ template {
   position: relative;
   font-size: 12px;
   line-height: 16px;
-  padding-left: 80px;
+  padding-left: 40px;
   cursor: pointer;
   min-height: 30px;
   padding-top: 17px;
 }
+/*
 .radio__label::before {
   content: "";
   display: block;
@@ -437,6 +440,7 @@ template {
   position: absolute;
   background-color: white;
 }
+
 .radio__label::after {
   content: "";
   display: block;
@@ -449,7 +453,7 @@ template {
   background-image: url("../img/vector2.svg");
   background-repeat: no-repeat;
 }
-
+*/
 .radio__input {
   display: none;
 }
@@ -544,7 +548,7 @@ template {
 
 .candidates__link {
   width: 220px;
-  height: 31px;
+  height: 45px;
   text-align: center;
   padding-top: 13px;
   margin-top: 6px;
@@ -557,6 +561,7 @@ template {
 .filter__candidate {
   position: relative;
 }
+/*
 .filter__candidate::after {
   position: absolute;
   display: block;
@@ -568,7 +573,7 @@ template {
   top: 4px;
   right: 2px;
 }
-
+*/
 .filter__link {
   color: #76798a;
   font-size: 20px;
@@ -617,6 +622,7 @@ template {
 .filter__label--second {
   position: relative;
 }
+/*
 .filter__label--second::after {
   position: absolute;
   display: block;
@@ -629,11 +635,12 @@ template {
   right: 10px;
   cursor: pointer;
 }
-
+*/
 .filter__label--third {
   margin-left: 29px;
   position: relative;
 }
+/*
 .filter__label--third::after {
   position: absolute;
   display: block;
@@ -646,7 +653,7 @@ template {
   right: 10px;
   cursor: pointer;
 }
-
+*/
 .filter__input--first {
   margin-right: 17px;
   margin-top: 9px;
@@ -759,7 +766,9 @@ template {
   border: none;
   width: 14%;
   padding: 10px 20px;
-  height: 50px;
+  height: 46px;
+    display: block;
+    margin-top: 10px;
 }
 
 .personal {
@@ -786,7 +795,7 @@ template {
 }
 
 .personal__input--second {
-  width: 70%;
+  width: 90%;
 }
 
 .personal__unit {
@@ -821,12 +830,12 @@ template {
   border: 1px dashed #e1e5e9;
   border-radius: 8px;
   width: 238px;
-  height: 238px;
+  /*height: 238px;*/
   cursor: pointer;
   font-size: 14px;
   line-height: 24px;
   color: #76798a;
-  padding-top: 29px;
+  padding-top: 208px;
   position: relative;
 }
 .personal__btn::before {
@@ -909,7 +918,7 @@ template {
   padding: 0;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #D5D5DD;
+  /*border-bottom: 1px solid #D5D5DD;*/
   margin: 0 46% 4.5% 0;
 }
 
@@ -960,4 +969,29 @@ template {
   cursor: pointer;
   width: 11%;
   height: 46px;
+}
+
+.filter .select2 {
+    margin: 9px 16px 10px 0px;
+
+}
+
+.filter .select2 .select2-selection {
+    height: 39px;
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
+    line-height: 30px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 38px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 38px;
+}
+
+.personal__block .personal_photo {
+    background-position: center;
+    background-size: cover;
 }

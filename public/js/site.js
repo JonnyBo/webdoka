@@ -19,6 +19,25 @@ $(".deleteField").click(function(){
 
     console.log("error");
 });
+$(document).ready(function() {
+    // Select2 Multiple
+    $('.select2-multiple').select2({
+        placeholder: "Выберите навыки",
+        allowClear: true
+    });
+    $('.select2-single').select2({
+        placeholder: "Select",
+        //allowClear: true
+    });
+    $('.filter .input').change(function () {
+        $('#form-user-filter').submit();
+    });
+    $('.selection__pencil').click(function () {
+        $('#' + $(this).data('form')).submit();
+    })
+
+});
+/*
 $(".statusFilter").change(function () {
     const filter = $(this).val();
     $.ajax({
@@ -33,3 +52,4 @@ $(".statusFilter").change(function () {
         }
     });
 });
+*/

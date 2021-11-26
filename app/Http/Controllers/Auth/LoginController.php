@@ -32,7 +32,7 @@ class LoginController extends Controller {
 
         if (Auth::attempt($credentials)) {
             return redirect()
-                ->route('welcome')
+                ->route('user.index')
                 ->with('success', 'Вы вошли в личный кабинет');
         }
 
