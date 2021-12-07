@@ -57,7 +57,7 @@ class RegisterController extends Controller {
 
         $data = $request->all();
         $data['user_id'] = $user->id;
-        $data['status_id'] = 1;
+        $data['status_id'] = Status::getDefaultStatus();
 
         $worker = new Worker();
         if ($worker->saveWorker($data)) {

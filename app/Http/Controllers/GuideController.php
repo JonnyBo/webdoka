@@ -32,75 +32,6 @@ class GuideController extends Controller
         return view('guide.index', compact('guids'));
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /*public function status()
-    {
-        //доступ админам
-        if (Auth::user()->role_id !== 1)
-            return redirect()
-                ->route('welcome')
-                ->withErrors('Не достаточно прав для удаления сотрудников');
-        $guids = [];
-        $items = DB::table('roles')->get();
-        $guids[] = ['name' => 'Роли', 'table' => 'roles', 'items' => $items];
-        $items = DB::table('statuses')->get();
-        $guids[] = ['name' => 'Статусы', 'table' => 'statuses', 'items' => $items];
-        $items = DB::table('sources')->get();
-        $guids[] = ['name' => 'Источники', 'table' => 'sources', 'items' => $items];
-        $items = DB::table('skills')->get();
-        $guids[] = ['name' => 'Навыки', 'table' => 'skills', 'items' => $items];
-        return view('guide.index', compact('guids'));
-    }*/
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /*public function source()
-    {
-        //доступ админам
-        if (Auth::user()->role_id !== 1)
-            return redirect()
-                ->route('welcome')
-                ->withErrors('Не достаточно прав для удаления сотрудников');
-        $items = DB::table('sources')->get();
-        $guide = ['name' => 'Источники', 'table' => 'sources'];
-        return view('guide.index', compact('items', 'guide'));
-    }*/
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /*public function role()
-    {
-        //доступ админам
-        if (Auth::user()->role_id !== 1)
-            return redirect()
-                ->route('welcome')
-                ->withErrors('Не достаточно прав для удаления сотрудников');
-        $items = DB::table('roles')->get();
-        $guide = ['name' => 'Роли', 'table' => 'roles'];
-        return view('guide.index', compact('items', 'guide'));
-    }*/
-
-    /*public function skill()
-    {
-        //доступ админам
-        if (Auth::user()->role_id !== 1)
-            return redirect()
-                ->route('welcome')
-                ->withErrors('Не достаточно прав для удаления сотрудников');
-        $items = DB::table('skills')->get();
-        $guide = ['name' => 'Навыки', 'table' => 'skills'];
-        return view('guide.index', compact('items', 'guide'));
-    }*/
 
     /**
      * Show the form for creating a new resource.
@@ -170,7 +101,7 @@ class GuideController extends Controller
         if (Auth::user()->role_id !== 1)
             return redirect()
                 ->route('welcome')
-                ->withErrors('Не достаточно прав для удаления сотрудников');
+                ->withErrors('Недостаточно прав для редактирования справочников');
         $data = $request->all();
         if (!$data['table'] || !$data['name'] || !$data['id'])
             return redirect()->route('welcome')->withErrors('Не переданы параметры');
@@ -193,7 +124,7 @@ class GuideController extends Controller
         if (Auth::user()->role_id !== 1)
             return redirect()
                 ->route('welcome')
-                ->withErrors('Не достаточно прав для удаления сотрудников');
+                ->withErrors('Недостаточно прав для редактирования справочников');
         $data = $request->all();
         if (!$data['table'] || !$data['id'])
             return redirect()->route('welcome')->withErrors('Не переданы параметры');
@@ -208,5 +139,25 @@ class GuideController extends Controller
         if (!$result)
             return redirect()->route('guide')->withErrors('Не удалось удалить значение');
         return redirect()->route('guide')->with('success','Значение успешно удалено');
+    }
+
+    protected function setDefault($table, $id) {
+        DB::table($table)->update(['active' => 0]);
+        return DB::table($table)->where('id', intval($id))->update(['active' => 1]);
+    }
+
+    public function default(Request $request) {
+        //доступ админам
+        if (Auth::user()->role_id !== 1)
+            return redirect()
+                ->route('welcome')
+                ->withErrors('Недостаточно прав для редактирования справочников');
+        $data = $request->all();
+        if (!$data['table'] || !$data['id'])
+            return redirect()->route('welcome')->withErrors('Не переданы параметры');
+        $table = trim(strip_tags($data['table']));
+        if (!$this->setDefault($table, $data['id']))
+            return redirect()->route('guide')->withErrors('Не удалось обновить значение');
+        return redirect()->route('guide')->with('success','Значение успешно обновлено');
     }
 }

@@ -15,7 +15,12 @@ class Status extends Model
 
     protected $table = 'statuses';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'active'];
 
     public $timestamps = false;
+
+    public static function getDefaultStatus() {
+        $status = Status::where('active', 1)->first();
+        return $status->id;
+    }
 }

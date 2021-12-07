@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use App\Models\Status;
+use App\Models\User;
+use App\Models\Worker;
 
 class InviteController extends Controller {
 
@@ -40,6 +43,23 @@ class InviteController extends Controller {
             ['email' => $request->email, 'token' => $token, 'created_at' => Carbon::now()]
         );
         */
+
+        $user = User::create([
+            'name' => $request->email,
+            'email' => $request->email,
+            //'password' => Hash::make($request->password),
+            'role_id' => 2
+        ]);
+
+        $worker = new Worker();
+        $worker->user_id = $user->id;
+        $worker->status_id = Status::getDefaultStatus();
+        if (!$worker->save()) {
+            return redirect()
+                ->route('login')
+                ->withErrors('Ошибка регистрации');
+        }
+
         // ссылка для сброса пароля
         $link = route('register', ['token' => $token, 'email' => $request->email]);
         Mail::send(
@@ -50,6 +70,7 @@ class InviteController extends Controller {
                 $message->subject('Приглашение на регистрацию');
             }
         );
+
         return back()->with('success', 'Ссылка для регистрации пользователя отправлена на почту');
     }
 }

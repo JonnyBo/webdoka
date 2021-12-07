@@ -34,6 +34,9 @@ Route::post('guide/update', 'App\Http\Controllers\GuideController@update')->name
 //добавление нового
 Route::post('guide/delete', 'App\Http\Controllers\GuideController@destroy')->name('guide.destroy');
 
+//выбор по умолчанию
+Route::post('guide/default', 'App\Http\Controllers\GuideController@default')->name('guide.default');
+
 // список сотрудников
 Route::get('/', 'App\Http\Controllers\User\IndexController@welcome')->name('welcome');
 // форма ввода почты для регистрации
