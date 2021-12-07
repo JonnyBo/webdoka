@@ -107,12 +107,11 @@
                                         </a></td>
 
                                     <td class="selection__text">
-                                        <form action="{{ route('user.destroy',$worker->id) }}" method="POST"
-                                              class="btn">
+                                        {!! Form::open(['url' => route('user.destroy',$worker->id),'method' => 'POST', 'class' => 'btn', 'role' => 'form','onsubmit' => 'return confirm("Вы действительно хотите удалить этого кандидата?")'])!!}
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="selection__delete selection__button"></button>
-                                        </form>
+                                        {!! Form::close() !!}
                                     </td>
                                 </tr>
 

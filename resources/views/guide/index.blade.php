@@ -58,12 +58,15 @@
                                 </td>
                                 <td class="selection__text"><button type="button" class="selection__pencil selection__button" data-form="edit-{{ $guid['table'] }}_{{ $item->id }}"></button></td>
                                 <td class="selection__text">
-                                    <form action="{{ route('guide.destroy',$item->id) }}" method="POST" class="btn">
+                                    <!--form action="{{ route('guide.destroy',$item->id) }}" method="POST" class="btn"-->
+                                    {!! Form::open(['url'=>route('guide.destroy',$item->id),'method'=>'POST','class'=>'btn',
+            'role'=>'form','onsubmit' => 'return confirm("Вы действительно хотите удалить это значение?")'])!!}
                                         @csrf
                                         <input type="hidden" name="id" value="{{ $item->id }}">
                                         <input type="hidden" name="table" value="{{ $guid['table'] }}">
                                         <button type="submit" class="selection__delete selection__button"></button>
-                                    </form>
+                                    {!! Form::close() !!}
+                                    <!--/form-->
                                 </td>
                             </tr>
                             @endforeach

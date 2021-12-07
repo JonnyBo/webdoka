@@ -198,6 +198,12 @@ class GuideController extends Controller
         if (!$data['table'] || !$data['id'])
             return redirect()->route('welcome')->withErrors('Не переданы параметры');
         $table = trim(strip_tags($data['table']));
+        //сделать валидатор
+        if ($table == 'statuses') {
+            $useStatus = DB::table('workers')->where('status_id', intval($data['id']))->count();
+            if ($useStatus)
+                return redirect()->route('guide')->withErrors('Нельзя удалить значение, выбранное у кандидатов');
+        }
         $result = DB::table($table)->where('id', intval($data['id']))->delete();
         if (!$result)
             return redirect()->route('guide')->withErrors('Не удалось удалить значение');
