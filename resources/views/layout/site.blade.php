@@ -30,6 +30,15 @@
             </picture>
         </a>
 
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('setlocale', ['lang' => 'en']) }}">EN</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('setlocale', ['lang' => 'ru']) }}">RU</a>
+            </li>
+        </ul>
+
         <nav class="main-nav">
             <ul class="main-nav__list site-list">
                 @auth
