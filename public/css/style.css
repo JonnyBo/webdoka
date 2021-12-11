@@ -995,3 +995,8 @@ template {
     background-position: center;
     background-size: cover;
 }
+
+.page-header .langs {
+    position: relative;
+    top: -80px;
+}

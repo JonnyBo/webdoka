@@ -26,20 +26,37 @@
         <a class="page-header__logo">
             <picture>
                 <img class="page-header__logo-image" src="/img/logo@1x.png" srcset="./img/logo@2x.png 2x" width="175" height="44"
-                     alt="Логотип">
+                     alt="@lang('site.logo')">
             </picture>
         </a>
 
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('setlocale', ['lang' => 'en']) }}">EN</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('setlocale', ['lang' => 'ru']) }}">RU</a>
-            </li>
-        </ul>
 
         <nav class="main-nav">
+
+            @php $locale = session()->get('locale'); @endphp
+            <div class="langs">
+                <div class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        @switch($locale)
+                            @case('ru')
+                            <img src="{{asset('img/flags/ru.png')}}" width="25px"> Ru
+                            @break
+                            @case('en')
+                            <img src="{{asset('img/flags/en.png')}}" width="25px"> En
+                            @break
+                            @default
+                            <img src="{{asset('img/flags/ru.png')}}" width="25px"> Ru
+                        @endswitch
+                        <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="lang/ru"><img src="{{asset('img/flags/ru.png')}}" width="25px"> Ru</a>
+                        <a class="dropdown-item" href="lang/en"><img src="{{asset('img/flags/en.png')}}" width="25px"> En</a>
+                    </div>
+                </div>
+            </div>
+
             <ul class="main-nav__list site-list">
                 @auth
                 <li class="site-list__item">
@@ -48,7 +65,7 @@
                             <use xlink:href="/img/sprite.svg#users">
                             </use>
                         </svg>
-                        Кандидаты
+                        @lang('site.candidates')
                     </a>
                 </li>
                 <li class="site-list__item">
@@ -57,7 +74,7 @@
                             <use xlink:href="/img/sprite.svg#add">
                             </use>
                         </svg>
-                        Пригласить кандидата
+                        @lang('site.invite_candidate')
                     </a>
                 </li>
                 <li class="site-list__item">
@@ -66,7 +83,7 @@
                             <use xlink:href="/img/sprite.svg#settings">
                             </use>
                         </svg>
-                        Настройки
+                        @lang('site.settings')
                     </a>
                 </li>
                 @endif
@@ -77,7 +94,7 @@
                                 <use xlink:href="/img/sprite.svg#output">
                                 </use>
                             </svg>
-                            Войти
+                            @lang('site.auth')
                         </a>
                     </li>
                     <!--li class="nav-item">
@@ -93,7 +110,7 @@
                                 <use xlink:href="/img/sprite.svg#output">
                                 </use>
                             </svg>
-                            Выйти
+                            @lang('site.out')
                         </a>
                     </li>
                 @endif

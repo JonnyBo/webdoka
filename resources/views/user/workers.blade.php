@@ -1,16 +1,18 @@
-@extends('layout.site', ['title' => 'Кандидаты'])
+@extends('layout.site', ['title' => __('site.candidates')])
 
 @section('content')
 
+    @php $confirm = __('site.confirm'); @endphp
+
     <section class="candidates">
-        <h2 class="candidates__heading heading">Кандидаты</h2>
-        <a class="candidates__link button" href="{{ route('user.create') }}">Новый сотрудник</a>
+        <h2 class="candidates__heading heading">@lang('site.candidates')</h2>
+        <a class="candidates__link button" href="{{ route('user.create') }}">@lang('site.new_user')</a>
     </section>
 
     <section class="tabs">
         <ul class="tabs__list filter__candidate">
             <li class="tabs__item">
-                <button class="tabs__btn tabs__btn--active" data-tabs-path="filter">Фильтр</button>
+                <button class="tabs__btn tabs__btn--active" data-tabs-path="filter">@lang('site.filter')</button>
             </li>
             <!--li class="tabs__item">
                 <button class="tabs__btn" data-tabs-path="new-filter">Новый фильтр</button>
@@ -26,11 +28,11 @@
                 <form id="form-user-filter" action="{{ route('user.index') }}" method="GET">
                     <div class="filter__container">
 
-                        <label class="filter__label filter__label--first label" for="name">Поиск</label>
-                        <label class="filter__label filter__label--second label" for="status">Статус</label>
-                        <label class="filter__label filter__label--third label" for="skill">Навыки</label>
+                        <label class="filter__label filter__label--first label" for="name">@lang('site.search')</label>
+                        <label class="filter__label filter__label--second label" for="status">@lang('site.status')</label>
+                        <label class="filter__label filter__label--third label" for="skill">@lang('site.skills')</label>
                         <input class="filter__input filter__input--first input" type="text" id="name" name="name"
-                               placeholder="Поиск по имени или email"  value="{{ $filter['name'] ?? '' }}">
+                               placeholder="@lang('site.search_placeholder')"  value="{{ $filter['name'] ?? '' }}">
                         <select class="filter__input filter__input--second input select2-single" name="status"
                                 id="status">
                             <!--option>Выберите статус</option-->
@@ -40,7 +42,7 @@
                         </select>
                         <select class="filter__input filter__input--third input select2-multiple" name="skills[]"
                                 id="skill" multiple>
-                            <option>выберите навыки</option>
+                            <option>@lang('site.choose_skills')</option>
                             @foreach($skills as $skill)
                                 <option value="{{ $skill->id }}" @if(isset($filter['skills']) && !empty($filter['skills']) && in_array($skill->id, $filter['skills'])) selected @endif>{{ $skill->name }}</option>
                             @endforeach
@@ -63,18 +65,18 @@
 
                                 <td>
                                     <input class="radio__input" type="radio" name="target" id="number">
-                                    <label class="radio__label" for="number">№</label>
+                                    <label class="radio__label" for="number">@lang('site.num')</label>
                                 </td>
 
-                                <td class="selection__text">Имя, Фамилия</td>
+                                <td class="selection__text">@lang('site.name_surname')</td>
 
-                                <td class="selection__text">E-mail</td>
+                                <td class="selection__text">@lang('site.email')</td>
 
-                                <td class="selection__text">Дата регистрации</td>
+                                <td class="selection__text">@lang('site.date_signup')</td>
 
-                                <td class="selection__text">Права</td>
+                                <td class="selection__text">@lang('site.rights')</td>
 
-                                <td class="selection__text">Статус</td>
+                                <td class="selection__text">@lang('site.status')</td>
 
                                 <td class="selection__none"></td>
 
@@ -107,7 +109,7 @@
                                         </a></td>
 
                                     <td class="selection__text">
-                                        {!! Form::open(['url' => route('user.destroy',$worker->id),'method' => 'POST', 'class' => 'btn', 'role' => 'form','onsubmit' => 'return confirm("Вы действительно хотите удалить этого кандидата?")'])!!}
+                                        {!! Form::open(['url' => route('user.destroy',$worker->id),'method' => 'POST', 'class' => 'btn', 'role' => 'form','onsubmit' => 'return confirm("' . $confirm . '")'])!!}
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="selection__delete selection__button"></button>
@@ -119,7 +121,7 @@
                             </tbody>
                         </table>
                     @else
-                        <div class="empty">По данному статусу сотрудники не найдены</div>
+                        <div class="empty">@lang('site.empty')</div>
                     @endif
                 </div>
             </section>

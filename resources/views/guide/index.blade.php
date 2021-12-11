@@ -1,9 +1,11 @@
-@extends('layout.site', ['title' => 'Админ панель'])
+@extends('layout.site', ['title' => __('site.settings')])
 
 @section('content')
 
+    @php $confirm = __('site.confirm'); @endphp
+
     <section class="candidates">
-        <h2 class="candidates__heading heading">Настройки</h2>
+        <h2 class="candidates__heading heading">@lang('site.settings')</h2>
     </section>
 
     <section class="tabs">
@@ -21,9 +23,9 @@
                 <form method="post" action="{{ route('guide.create') }}">
                     <input type="hidden" name="table" value="{{ $guid['table'] }}">
                     @csrf
-                    <label class="content__label label" for="name">Добавить</label>
-                    <input class="content__input input" type="text" id="name" name="name" placeholder="Введите название" required />
-                    <button class="content__btn button">Добавить</button>
+                    <label class="content__label label" for="name">@lang('site.add')</label>
+                    <input class="content__input input" type="text" id="name" name="name" placeholder="@lang('site.new_name')" required />
+                    <button class="content__btn button">@lang('site.add')</button>
                 </form>
 
                 <section class="selection">
@@ -36,9 +38,9 @@
                                     <!--input class="radio__input" type="radio" name="target" id="number"-->
                                     <label class="radio__label" for="number">№</label>
                                 </td>
-                                <td class="selection__text">Наименование</td>
+                                <td class="selection__text">@lang('site.name')</td>
                                 @if($guid['table'] == 'statuses')
-                                    <td class="selection__text">По умолчанию</td>
+                                    <td class="selection__text">@lang('site.default')</td>
                                 @endif
                                 <td class="selection__none"></td>
                                 <td class="selection__none"></td>
@@ -83,7 +85,7 @@
                                 <td class="selection__text">
                                     <!--form action="{{ route('guide.destroy',$item->id) }}" method="POST" class="btn"-->
                                     {!! Form::open(['url'=>route('guide.destroy',$item->id),'method'=>'POST','class'=>'btn',
-            'role'=>'form','onsubmit' => 'return confirm("Вы действительно хотите удалить это значение?")'])!!}
+            'role'=>'form','onsubmit' => 'return confirm("' . $confirm . '")'])!!}
                                         @csrf
                                         <input type="hidden" name="id" value="{{ $item->id }}">
                                         <input type="hidden" name="table" value="{{ $guid['table'] }}">

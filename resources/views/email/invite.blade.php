@@ -1,2 +1,2 @@
-<h3>Приглашение на регистрацию</h3>
-<p>Для регистрации перейдите по этой <a href="{{ $link }}">ссылке</a>.</p>
+<h3>@lang('site.invitation_to_register')</h3>
+<p>{{ __('site.link_to_register', ['link' => $link]) }}</p>
