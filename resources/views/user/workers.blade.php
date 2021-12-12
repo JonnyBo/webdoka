@@ -2,7 +2,11 @@
 
 @section('content')
 
-    @php $confirm = __('site.confirm'); @endphp
+    @php
+        $confirm = __('site.confirm');
+        $lang = session()->get('locale');
+        $prefix = ($lang == 'ru') ? '' : '_' . $lang;
+    @endphp
 
     <section class="candidates">
         <h2 class="candidates__heading heading">@lang('site.candidates')</h2>
@@ -94,7 +98,7 @@
                                         <label class="radio__label" for="one_{{ $worker->id }}">{{ ++$key }}</label>
                                     </td>
 
-                                    <td class="selection__text">{{ $worker->name }}</td>
+                                    <td class="selection__text">{{ $worker->{'name' . $prefix} }}</td>
 
                                     <td class="selection__text">{{ $worker->email }}</td>
 
@@ -104,7 +108,7 @@
 
                                     <td class="selection__text">{{ $worker->status }}</td>
 
-                                    <td class="selection__text"><a href="{{ route('user.edit',$worker->id) }}">
+                                    <td class="selection__text"><a href="{{ route('user.edit', $worker->id) }}">
                                             <button class="selection__pencil selection__button"></button>
                                         </a></td>
 

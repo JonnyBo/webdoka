@@ -2,7 +2,11 @@
 
 @section('content')
 
-    @php $confirm = __('site.confirm'); @endphp
+    @php
+        $confirm = __('site.confirm');
+        $lang = session()->get('locale');
+        $prefix = ($lang == 'ru') ? '' : '_' . $lang;
+    @endphp
 
     <section class="candidates">
         <h2 class="candidates__heading heading">@lang('site.settings')</h2>
@@ -24,7 +28,7 @@
                     <input type="hidden" name="table" value="{{ $guid['table'] }}">
                     @csrf
                     <label class="content__label label" for="name">@lang('site.add')</label>
-                    <input class="content__input input" type="text" id="name" name="name" placeholder="@lang('site.new_name')" required />
+                    <input class="content__input input" type="text" id="name" name="name{{ $prefix }}" placeholder="@lang('site.new_name')" required />
                     <button class="content__btn button">@lang('site.add')</button>
                 </form>
 
@@ -57,7 +61,7 @@
                                         @csrf
                                         <input type="hidden" name="table" value="{{ $guid['table'] }}">
                                         <input type="hidden" name="id" value="{{ $item->id }}">
-                                        <input class="content__input input" style="width: 500px" type="text" name="name" value="{{ $item->name }}">
+                                        <input class="content__input input" style="width: 500px" type="text" name="name{{ $prefix }}" value="{{ $item->{'name'.$prefix} }}">
 
                                     </form>
                                 </td>

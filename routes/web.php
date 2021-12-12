@@ -17,9 +17,22 @@ use App\Http\Controllers\LocalizationController;
 
 
 Route::get('lang/{locale}', [App\Http\Controllers\LocalizationController::class, 'index']);
+    /*
+    Route::get('user', 'App\Http\Controllers\User\IndexController@index')->name('user.index');
+
+    Route::get('user/create', 'App\Http\Controllers\User\IndexController@create')->name('user.create');
+
+    Route::post('user/store', 'App\Http\Controllers\User\IndexController@store')->name('user.store');
+
+    Route::post('user/destroy', 'App\Http\Controllers\User\IndexController@destroy')->name('user.destroy');
+
+    Route::get('user/edit/{user}', 'App\Http\Controllers\User\IndexController@edit')->name('user.edit');
+
+    Route::post('user/update', 'App\Http\Controllers\User\IndexController@update')->name('user.update');
+
+     */
 
     Route::resource('user', App\Http\Controllers\User\IndexController::class);
-
     //Route::resource('field', App\Http\Controllers\User\FieldController::class);
 
 //справочники

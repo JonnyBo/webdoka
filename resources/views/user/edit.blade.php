@@ -6,7 +6,10 @@
         <h2 class="candidates__heading heading">{{ __('site.user_name', ['name' => $worker->name]) }}</h2>
     </section>
 
-    <?php //print_r($worker->worker); ?>
+    @php
+        $lang = session()->get('locale');
+        $prefix = ($lang == 'ru') ? '' : '_' . $lang;
+    @endphp
 
     <div class="container">
 
@@ -14,12 +17,12 @@
             @method('put')
             @csrf
 
-        <h2 class="head">@lang('site.new_user')</h2>
+        <h2 class="head">@lang('site.edit_user')</h2>
         <section class="personal">
             <div class="personal__container">
                 <label class="personal__label label" for="fam">@lang('site.name_surname')</label>
-                <input class="personal__input personal__input--first input" type="text" id="fam" name="name"
-                       placeholder="@lang('site.name_surname')" value="{{ $worker->name }}" required>
+                <input class="personal__input personal__input--first input" type="text" id="fam" name="name{{ $prefix }}"
+                       placeholder="@lang('site.name_surname')" value="{{ $worker->{'name' . $prefix} }}" required>
                 <label class="personal__label label" for="mail">@lang('site.email')</label>
                 <input class="personal__input personal__input--first input" type="email" id="mail" name="email"
                        placeholder="@lang('site.address_email')" value="{{ $worker->email }}" required>
@@ -27,10 +30,10 @@
                 <div class="personal__unit">
                     <div class="personal__part">
                         <label class="personal__label personal__label--second label" for="gender">@lang('site.sex')</label>
-                        <select class="personal__input personal__input--second input" name="sex" id="gender" required>
+                        <select class="personal__input personal__input--second input" name="sex{{ $prefix }}" id="gender" required>
                             <option>@lang('site.sex')</option>
-                            <option value="@lang('site.sex_M')" {{ ($worker->worker->sex == __('site.sex_M')) ? 'selected' : '' }}>@lang('site.sex_M')</option>
-                            <option value="@lang('site.sex_F')" {{ ($worker->worker->sex == __('site.sex_F')) ? 'selected' : '' }}>@lang('site.sex_F')</option>
+                            <option value="@lang('site.sex_M')" {{ ($worker->worker->{'sex' . $prefix} == __('site.sex_M')) ? 'selected' : '' }}>@lang('site.sex_M')</option>
+                            <option value="@lang('site.sex_F')" {{ ($worker->worker->{'sex' . $prefix} == __('site.sex_F')) ? 'selected' : '' }}>@lang('site.sex_F')</option>
                         </select>
                         <!--input class="personal__input personal__input--second input" type="text" id="gender" name="sex"
                                placeholder="Выберите пол" required-->
@@ -67,7 +70,7 @@
             <div class="contact__unit">
                 <div class="contact__part">
                     <label class="contact__label label" for="district">@lang('site.district')</label>
-                    <input class="contact__input input" type="text" id="district" name="region" value="{{ $worker->worker->region }}" placeholder="@lang('site.you_district')">
+                    <input class="contact__input input" type="text" id="district" name="region{{ $prefix }}" value="{{ $worker->worker->{'region' . $prefix} }}" placeholder="@lang('site.you_district')">
                 </div>
                 <div class="contact__part">
                     <label class="contact__label label" for="whatsapp">@lang('site.watsapp')</label>
@@ -101,7 +104,7 @@
                 </div>
                 <div class="skill__part">
                     <label class="skill__label label" for="education">@lang('site.education')</label>
-                    <input class="skill__input input" type="text" id="education" name="education" value="{{ $worker->worker->education }}" placeholder="@lang('site.you_education')">
+                    <input class="skill__input input" type="text" id="education" name="education{{ $prefix }}" value="{{ $worker->worker->{'education' . $prefix} }}" placeholder="@lang('site.you_education')">
                 </div>
                 <div class="skill__part">
                     <label class="skill__label label" for="experience">@lang('site.experience')</label>
@@ -110,7 +113,7 @@
                 <div class="skill__part">
                     <label class="skill__label label" for="skills">@lang('site.choose_skills')</label>
                     @foreach($skills as $skill)
-                        <div><input type="checkbox" name="skills[]" value="{{ $skill->id }}" {{ (in_array($skill->id, explode(',', $worker->worker->skills))) ? 'checked' : '' }}><span class="pl-1">{{ $skill->name }}</span></div>
+                        <div><input type="checkbox" name="skills[]" value="{{ $skill->id }}" {{ (in_array($skill->id, explode(',', $worker->worker->skills))) ? 'checked' : '' }}><span class="pl-1">{{ $skill->{'name' . $prefix} }}</span></div>
                 @endforeach
 
                 </div>
@@ -125,7 +128,7 @@
                     <select class="skill__input input" name="status_id" id="status_id">
                         <option>@lang('site.choose_status')</option>
                         @foreach($statuses as $status)
-                            <option value="{{ $status->id }}" {{ ($worker->worker->status->id == $status->id) ? 'selected' : '' }}>{{ $status->name }}</option>
+                            <option value="{{ $status->id }}" {{ ($worker->worker->status->id == $status->id) ? 'selected' : '' }}>{{ $status->{'name' . $prefix} }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -134,7 +137,7 @@
                     <select class="skill__input input" name="role_id" id="role_id">
                         <option>@lang('site.choose_role')</option>
                         @foreach($roles as $role)
-                            <option value="{{ $role->id }}" {{ ($worker->role->id == $role->id) ? 'selected' : '' }}>{{ $role->name }}</option>
+                            <option value="{{ $role->id }}" {{ ($worker->role->id == $role->id) ? 'selected' : '' }}>{{ $role->{'name' . $prefix} }}</option>
                         @endforeach
                     </select>
                 </div>

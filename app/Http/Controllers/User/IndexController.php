@@ -37,7 +37,7 @@ class IndexController extends Controller {
         if (Auth::user()->role_id == 2)
             return redirect()
                 ->route('welcome')
-                ->withErrors('Не достаточно прав для просмотра сотрудников');
+                ->withErrors(__('site.access_denied'));
         //фильтрация
         $statuses = Status::all();
         $skills = Skill::all();
@@ -62,7 +62,7 @@ class IndexController extends Controller {
         }
         //запрос
         $workers = DB::table('users')
-            ->select('users.id', 'users.name', 'users.email', 'users.created_at', 'roles.name as role', 'statuses.name as status', 'workers.skills')
+            ->select('users.id', 'users.name', 'users.name_en', 'users.email', 'users.created_at', 'roles.name as role', 'statuses.name as status', 'workers.skills')
             ->join('workers', 'users.id', '=', 'workers.user_id')
             ->join('statuses', 'workers.status_id', '=', 'statuses.id')
             ->join('roles', 'users.role_id', '=', 'roles.id')
@@ -97,7 +97,7 @@ class IndexController extends Controller {
         if (Auth::user()->role_id !== 1)
             return redirect()
                 ->route('welcome')
-                ->withErrors('Не достаточно прав для создания сотрудников');
+                ->withErrors(__('site.access_denied'));
         $worker = new Worker();
         $roles = Role::all();
         $statuses = Status::all();
@@ -112,7 +112,7 @@ class IndexController extends Controller {
         if (Auth::user()->role_id !== 1)
             return redirect()
                 ->route('welcome')
-                ->withErrors('Не достаточно прав для сохранения сотрудников');
+                ->withErrors(__('site.access_denied'));
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -141,10 +141,10 @@ class IndexController extends Controller {
 
             return redirect()
                 ->route('user.index')
-                ->with('success','Сотрудник успешно добавлен');
+                ->with('success', __('site.add_user_success'));
         }
 
-        return redirect()->route('user.index')->withErrors('Не удалось зарегистрировать сотрудника');
+        return redirect()->route('user.index')->withErrors(__('site.add_user_error'));
     }
 
     public function destroy(User $user) {
@@ -152,10 +152,10 @@ class IndexController extends Controller {
         if (Auth::user()->role_id !== 1)
             return redirect()
                 ->route('welcome')
-                ->withErrors('Не достаточно прав для удаления сотрудников');
+                ->withErrors(__('site.access_denied'));
         $user->delete();
         return redirect()->route('user.index')
-            ->with('success','Сотрудник успешно удален');
+            ->with('success', __('site.delete_user_success'));
     }
 
     public function edit(User $user) {
@@ -163,7 +163,7 @@ class IndexController extends Controller {
         if (Auth::user()->role_id !== 1)
             return redirect()
                 ->route('welcome')
-                ->withErrors('Не достаточно прав для редактирования сотрудников');
+                ->withErrors(__('site.access_denied'));
         $worker = $user;
         $roles = Role::all();
         $statuses = Status::all();
@@ -177,9 +177,9 @@ class IndexController extends Controller {
         if (Auth::user()->role_id !== 1)
             return redirect()
                 ->route('welcome')
-                ->withErrors('Не достаточно прав для обновления сотрудников');
+                ->withErrors(__('site.access_denied'));
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'string|max:255',
             'email' => 'required|string|email|max:255',
             'role_id' => 'required',
             'status_id' => 'required',
@@ -220,10 +220,10 @@ class IndexController extends Controller {
 
 
             return redirect()->route('user.edit', $user->id)
-                ->with('success', 'Сотрудник успешно обновлен');
+                ->with('success', __('site.update_user_success'));
 
         }
 
-        return redirect()->route('user.index')->withErrors('Не удалось обновить сотрудника');
+        return redirect()->route('user.index')->withErrors(__('site.update_user_error'));
     }
 }

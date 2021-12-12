@@ -19,16 +19,16 @@ class GuideController extends Controller
         if (Auth::user()->role_id !== 1)
             return redirect()
                 ->route('welcome')
-                ->withErrors('Не достаточно прав');
+                ->withErrors(__('site.access_denied'));
         $guids = [];
         $items = DB::table('roles')->get();
-        $guids[] = ['name' => 'Роли', 'table' => 'roles', 'items' => $items];
+        $guids[] = ['name' => __('site.roles'), 'table' => 'roles', 'items' => $items];
         $items = DB::table('statuses')->get();
-        $guids[] = ['name' => 'Статусы', 'table' => 'statuses', 'items' => $items];
+        $guids[] = ['name' => __('site.statuses'), 'table' => 'statuses', 'items' => $items];
         $items = DB::table('sources')->get();
-        $guids[] = ['name' => 'Источники', 'table' => 'sources', 'items' => $items];
+        $guids[] = ['name' => __('site.sources'), 'table' => 'sources', 'items' => $items];
         $items = DB::table('skills')->get();
-        $guids[] = ['name' => 'Навыки', 'table' => 'skills', 'items' => $items];
+        $guids[] = ['name' => __('site.skills'), 'table' => 'skills', 'items' => $items];
         return view('guide.index', compact('guids'));
     }
 
@@ -44,48 +44,16 @@ class GuideController extends Controller
         if (Auth::user()->role_id !== 1)
             return redirect()
                 ->route('welcome')
-                ->withErrors('Не достаточно прав для удаления сотрудников');
+                ->withErrors(__('site.access_delete'));
         $data = $request->all();
-        if (!$data['table'] || !$data['name'])
-            return redirect()->route('welcome')->withErrors('Не переданы параметры');
+        $prefix = $this->getPrefixName();
+        if (!$data['table'] || !$data['name' . $prefix])
+            return redirect()->route('welcome')->withErrors(__('site.not_parameter'));
         $table = trim(strip_tags($data['table']));
-        $result = DB::table($table)->insert(['name' => trim(strip_tags($data['name']))]);
+        $result = DB::table($table)->insert(['name' . $prefix => trim(strip_tags($data['name' . $prefix]))]);
         if (!$result)
-            return redirect()->route('guide')->withErrors('Не удалось добавить значение');
-        return redirect()->route('guide')->with('success','Значение успешно добавлено');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+            return redirect()->route('guide')->withErrors(__('site.add_error'));
+        return redirect()->route('guide')->with('success',  __('site.add_success'));
     }
 
     /**
@@ -101,15 +69,16 @@ class GuideController extends Controller
         if (Auth::user()->role_id !== 1)
             return redirect()
                 ->route('welcome')
-                ->withErrors('Недостаточно прав для редактирования справочников');
+                ->withErrors(__('site.access_denied'));
         $data = $request->all();
-        if (!$data['table'] || !$data['name'] || !$data['id'])
-            return redirect()->route('welcome')->withErrors('Не переданы параметры');
+        $prefix = $this->getPrefixName();
+        if (!$data['table'] || !$data['name' . $prefix] || !$data['id'])
+            return redirect()->route('welcome')->withErrors(__('site.not_parameter'));
         $table = trim(strip_tags($data['table']));
-        $result = DB::table($table)->where('id', intval($data['id']))->update(['name' => trim(strip_tags($data['name']))]);
+        $result = DB::table($table)->where('id', intval($data['id']))->update(['name' . $prefix => trim(strip_tags($data['name' . $prefix]))]);
         if (!$result)
-            return redirect()->route('guide')->withErrors('Не удалось обновить значение');
-        return redirect()->route('guide')->with('success','Значение успешно обновлено');
+            return redirect()->route('guide')->withErrors(__('site.update_error'));
+        return redirect()->route('guide')->with('success', __('site.update_success'));
     }
 
     /**
@@ -124,21 +93,21 @@ class GuideController extends Controller
         if (Auth::user()->role_id !== 1)
             return redirect()
                 ->route('welcome')
-                ->withErrors('Недостаточно прав для редактирования справочников');
+                ->withErrors(__('site.access_denied'));
         $data = $request->all();
         if (!$data['table'] || !$data['id'])
-            return redirect()->route('welcome')->withErrors('Не переданы параметры');
+            return redirect()->route('welcome')->withErrors(__('site.not_parameter'));
         $table = trim(strip_tags($data['table']));
         //сделать валидатор
         if ($table == 'statuses') {
             $useStatus = DB::table('workers')->where('status_id', intval($data['id']))->count();
             if ($useStatus)
-                return redirect()->route('guide')->withErrors('Нельзя удалить значение, выбранное у кандидатов');
+                return redirect()->route('guide')->withErrors(__('site.exist_error'));
         }
         $result = DB::table($table)->where('id', intval($data['id']))->delete();
         if (!$result)
-            return redirect()->route('guide')->withErrors('Не удалось удалить значение');
-        return redirect()->route('guide')->with('success','Значение успешно удалено');
+            return redirect()->route('guide')->withErrors(__('site.delete_error'));
+        return redirect()->route('guide')->with('success', __('site.delete_success'));
     }
 
     protected function setDefault($table, $id) {
@@ -151,13 +120,18 @@ class GuideController extends Controller
         if (Auth::user()->role_id !== 1)
             return redirect()
                 ->route('welcome')
-                ->withErrors('Недостаточно прав для редактирования справочников');
+                ->withErrors(__('site.access_denied'));
         $data = $request->all();
         if (!$data['table'] || !$data['id'])
-            return redirect()->route('welcome')->withErrors('Не переданы параметры');
+            return redirect()->route('welcome')->withErrors(__('site.not_parameter'));
         $table = trim(strip_tags($data['table']));
         if (!$this->setDefault($table, $data['id']))
-            return redirect()->route('guide')->withErrors('Не удалось обновить значение');
-        return redirect()->route('guide')->with('success','Значение успешно обновлено');
+            return redirect()->route('guide')->withErrors(__('site.update_error'));
+        return redirect()->route('guide')->with('success', __('site.update_success'));
+    }
+
+    protected function getPrefixName() {
+        $lang = session()->get('locale');
+        return ($lang == 'ru') ? '' : '_' . $lang;
     }
 }
