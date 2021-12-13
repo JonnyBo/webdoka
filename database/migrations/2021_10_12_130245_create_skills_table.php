@@ -13,10 +13,12 @@ class CreateSkillsTable extends Migration
      */
     public function up()
     {
-        Schema::create('skills', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-        });
+        if (!Schema::hasTable('skills')) {
+            Schema::create('skills', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+            });
+        }
     }
 
     /**

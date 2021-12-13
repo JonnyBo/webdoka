@@ -13,31 +13,38 @@ class CreeateEnLang extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('name_en')->nullable();
-        });
-
-        Schema::table('roles', function (Blueprint $table) {
-            $table->string('name_en')->nullable();
-        });
-
-        Schema::table('skills', function (Blueprint $table) {
-            $table->string('name_en')->nullable();
-        });
-
-        Schema::table('sources', function (Blueprint $table) {
-            $table->string('name_en')->nullable();
-        });
-
-        Schema::table('statuses', function (Blueprint $table) {
-            $table->string('name_en')->nullable();
-        });
-
-        Schema::table('workers', function (Blueprint $table) {
-            $table->string('sex_en')->nullable();
-            $table->string('region_en')->nullable();
-            $table->string('education_en')->nullable();
-        });
+        if (!Schema::hasColumn('users', 'name_en')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->string('name_en')->nullable();
+            });
+        }
+        if (!Schema::hasColumn('roles', 'name_en')) {
+            Schema::table('roles', function (Blueprint $table) {
+                $table->string('name_en')->nullable();
+            });
+        }
+        if (!Schema::hasColumn('skills', 'name_en')) {
+            Schema::table('skills', function (Blueprint $table) {
+                $table->string('name_en')->nullable();
+            });
+        }
+        if (!Schema::hasColumn('sources', 'name_en')) {
+            Schema::table('sources', function (Blueprint $table) {
+                $table->string('name_en')->nullable();
+            });
+        }
+        if (!Schema::hasColumn('statuses', 'name_en')) {
+            Schema::table('statuses', function (Blueprint $table) {
+                $table->string('name_en')->nullable();
+            });
+        }
+        if (!Schema::hasColumn('workers', 'sex_en') && !Schema::hasColumn('workers', 'region_en') && !Schema::hasColumn('workers', 'education_en')) {
+            Schema::table('workers', function (Blueprint $table) {
+                $table->string('sex_en')->nullable();
+                $table->string('region_en')->nullable();
+                $table->string('education_en')->nullable();
+            });
+        }
     }
 
     /**
