@@ -40,19 +40,19 @@
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         @switch($locale)
                             @case('ru')
-                            <img src="{{asset('img/flags/ru.png')}}" width="25px"> Ru
+                            <img src="{{asset('img/flags/ru.png')}}" width="25px">
                             @break
                             @case('en')
-                            <img src="{{asset('img/flags/en.png')}}" width="25px"> En
+                            <img src="{{asset('img/flags/en.png')}}" width="25px">
                             @break
                             @default
-                            <img src="{{asset('img/flags/ru.png')}}" width="25px"> Ru
+                            <img src="{{asset('img/flags/ru.png')}}" width="25px">
                         @endswitch
                         <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/lang/ru"><img src="{{asset('img/flags/ru.png')}}" width="25px"> Ru</a>
-                        <a class="dropdown-item" href="/lang/en"><img src="{{asset('img/flags/en.png')}}" width="25px"> En</a>
+                        <a class="dropdown-item" href="/lang/ru"><img src="{{asset('img/flags/ru.png')}}" width="25px"></a>
+                        <a class="dropdown-item" href="/lang/en"><img src="{{asset('img/flags/en.png')}}" width="25px"></a>
                     </div>
                 </div>
             </div>

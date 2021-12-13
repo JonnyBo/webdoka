@@ -58,7 +58,7 @@ class IndexController extends Controller {
             $fskills = $filter['skills'];
         }
         if (empty($filter)) {
-            $filter['status'] = 1;
+            $filter['status'] = Status::getDefaultStatus();
         }
         //запрос
         $workers = DB::table('users')
@@ -68,7 +68,7 @@ class IndexController extends Controller {
             ->join('roles', 'users.role_id', '=', 'roles.id')
             ->where('workers.status_id', '=', $filter['status'])
             ->when($fname, function ($query, $fname) {
-                return $query->where('users.name', 'like', "%" . $fname . "%")->orWhere('users.email', 'like', '%' . $fname . '%');
+                return $query->where('users.name', 'like', "%" . $fname . "%")->orWhere('users.name_en', 'like', '%' . $fname . '%')->orWhere('users.email', 'like', '%' . $fname . '%');
             })
             ->when($fskills, function ($query, $fskills) {
                 if (!empty($fskills)) {
