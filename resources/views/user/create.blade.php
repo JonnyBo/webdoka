@@ -147,6 +147,12 @@
                     </select>
                 </div>
             </div>
+            <div class="skill__unit">
+                <div class="textarea-div">
+                    <label class="skill__label label" for="comment">@lang('site.comment')</label>
+                    <textarea cols="2" rows="10" class="skill__input input" name="comment" id="comment"></textarea>
+                </div>
+            </div>
         </section>
         @endif
     </div>

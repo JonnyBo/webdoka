@@ -15,7 +15,7 @@ class Worker extends Model
 
     public $timestamps = true;
 
-    protected $fillable = ['user_id', 'status_id', /*'age',*/ 'sex', 'birthday', 'source_id', 'region', 'phone', 'telegram', 'watsapp', 'vyber', 'skype', 'resume', 'experience', 'education', 'skills', 'photo'];
+    protected $fillable = ['user_id', 'status_id', /*'age',*/ 'sex', 'birthday', 'source_id', 'region', 'phone', 'telegram', 'watsapp', 'vyber', 'skype', 'resume', 'experience', 'education', 'skills', 'photo', 'comment'];
 
     //public $rights = ['админ', 'пользователь', 'имеет доступ'];
 
@@ -53,6 +53,7 @@ class Worker extends Model
         $this->{'education' . $prefix} = trim(strip_tags($data['education' . $prefix]));
         $this->skills = (isset($data['skills']) && $data['skills'] && is_array($data['skills'])) ? implode(',', $data['skills']) : null;
         $this->photo = (isset($data['photo']) && $data['photo']) ? $data['photo'] : null;
+        $this->comment = (isset($data['comment']) && $data['comment']) ? $data['comment'] : null;
         return $this->save();
     }
 
@@ -73,6 +74,7 @@ class Worker extends Model
         $model->skype = trim(strip_tags($data['skype']));
         $model->resume = trim(strip_tags($data['resume']));
         $model->experience = trim(strip_tags($data['experience']));
+        $model->comment = trim(strip_tags($data['comment']));
         $model->{'education' . $prefix} = trim(strip_tags($data['education' . $prefix]));
         $model->skills = (isset($data['skills']) && $data['skills'] && is_array($data['skills'])) ? implode(',', $data['skills']) : null;
         if (isset($data['photo']) && $data['photo']) {
