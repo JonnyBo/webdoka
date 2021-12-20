@@ -53,7 +53,7 @@ class Worker extends Model
         $this->{'education' . $prefix} = trim(strip_tags($data['education' . $prefix]));
         $this->skills = (isset($data['skills']) && $data['skills'] && is_array($data['skills'])) ? implode(',', $data['skills']) : null;
         $this->photo = (isset($data['photo']) && $data['photo']) ? $data['photo'] : null;
-        $this->comment = (isset($data['comment']) && $data['comment']) ? $data['comment'] : null;
+        $this->{'comment' . $prefix} = (isset($data['comment' . $prefix]) && $data['comment' . $prefix]) ? $data['comment' . $prefix] : null;
         return $this->save();
     }
 
@@ -74,7 +74,7 @@ class Worker extends Model
         $model->skype = trim(strip_tags($data['skype']));
         $model->resume = trim(strip_tags($data['resume']));
         $model->experience = trim(strip_tags($data['experience']));
-        $model->comment = trim(strip_tags($data['comment']));
+        $model->{'comment' . $prefix} = trim(strip_tags($data['comment' . $prefix]));
         $model->{'education' . $prefix} = trim(strip_tags($data['education' . $prefix]));
         $model->skills = (isset($data['skills']) && $data['skills'] && is_array($data['skills'])) ? implode(',', $data['skills']) : null;
         if (isset($data['photo']) && $data['photo']) {

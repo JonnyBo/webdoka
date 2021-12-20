@@ -117,6 +117,7 @@ class IndexController extends Controller {
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'documents.*' => 'mimes:csv,txt,xlx,xls,pdf,doc,docx'
         ]);
 
         $user = User::create([
@@ -138,6 +139,23 @@ class IndexController extends Controller {
 
         $worker = new Worker();
         if ($worker->saveWorker($data)) {
+
+            if ($request->hasfile('documents')) {
+                $images = $request->file('documents');
+                //dd($images); it shows below logs.
+                foreach($images as $image) {
+                    //dd("to upload"); //it doesn't show.
+                    /*
+                    $name = $image->getClientOriginalName();
+                    $path = $image->storeAs('uploads', $name, 'public');
+
+                    File::create([
+                        'name' => $name,
+                        'path' => '/storage/'.$path
+                    ]);
+                    */
+                }
+            }
 
             return redirect()
                 ->route('user.index')
@@ -183,6 +201,7 @@ class IndexController extends Controller {
             'email' => 'required|string|email|max:255',
             'role_id' => 'required',
             'status_id' => 'required',
+            'documents.*' => 'mimes:csv,txt,xlx,xls,pdf,doc,docx'
         ]);
         $data = $request->all();
         if (isset($data['password']) && $data['password']) {
@@ -217,7 +236,22 @@ class IndexController extends Controller {
                 }
             }
 
+            if ($request->hasfile('documents')) {
+                $images = $request->file('documents');
+                //dd($images); it shows below logs.
+                foreach($images as $image) {
+                    //dd("to upload"); //it doesn't show.
+                    /*
+                    $name = $image->getClientOriginalName();
+                    $path = $image->storeAs('uploads', $name, 'public');
 
+                    File::create([
+                        'name' => $name,
+                        'path' => '/storage/'.$path
+                    ]);
+                    */
+                }
+            }
 
             return redirect()->route('user.edit', $user->id)
                 ->with('success', __('site.update_user_success'));

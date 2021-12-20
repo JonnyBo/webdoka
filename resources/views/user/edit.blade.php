@@ -145,7 +145,13 @@
             <div class="skill__unit">
                 <div class="textarea-div">
                     <label class="skill__label label" for="comment">@lang('site.comment')</label>
-                    <textarea cols="2" rows="10" class="skill__input input" name="comment" id="comment">{{ $worker->comment }}</textarea>
+                    <textarea cols="2" rows="10" class="skill__input input" name="comment{{ $prefix }}" id="comment">{{ $worker->worker->{'comment' . $prefix} }}</textarea>
+                </div>
+            </div>
+            <div class="skill__unit">
+                <div class="textarea-div">
+                    <label class="skill__label label" for="comment">@lang('site.documents')</label>
+                    <input type="file" class="skill__input input" name="documents[]" id="documents" multiple/>
                 </div>
             </div>
         </section>
