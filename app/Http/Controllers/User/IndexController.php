@@ -10,6 +10,7 @@ use App\Models\Role;
 use App\Models\Source;
 use App\Models\Status;
 use App\Models\Skill;
+use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Hash;
@@ -117,7 +118,7 @@ class IndexController extends Controller {
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'documents.*' => 'mimes:csv,txt,xlx,xls,pdf,doc,docx'
+            'documents.*' => 'mimes:csv,txt,xlsx,xls,pdf,doc,docx'
         ]);
 
         $user = User::create([
@@ -141,19 +142,20 @@ class IndexController extends Controller {
         if ($worker->saveWorker($data)) {
 
             if ($request->hasfile('documents')) {
-                $images = $request->file('documents');
-                //dd($images); it shows below logs.
-                foreach($images as $image) {
-                    //dd("to upload"); //it doesn't show.
-                    /*
-                    $name = $image->getClientOriginalName();
-                    $path = $image->storeAs('uploads', $name, 'public');
-
-                    File::create([
-                        'name' => $name,
-                        'path' => '/storage/'.$path
-                    ]);
-                    */
+                $documents = $request->file('documents');
+                foreach($documents as $document) {
+                    $name = $document->getClientOriginalName();
+                    $path = $document->storeAs('uploads', $name, 'public');
+                    $find = DB::table('documents')->where('user_id', $user->id)->where('name', $name)->first();
+                    if (!$find) {
+                        Document::create([
+                            'name' => $name,
+                            'url' => '/storage/' . $path,
+                            'user_id' => $user->id,
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s'),
+                        ]);
+                    }
                 }
             }
 
@@ -201,7 +203,7 @@ class IndexController extends Controller {
             'email' => 'required|string|email|max:255',
             'role_id' => 'required',
             'status_id' => 'required',
-            'documents.*' => 'mimes:csv,txt,xlx,xls,pdf,doc,docx'
+            'documents.*' => 'mimes:csv,txt,xlsx,xls,pdf,doc,docx'
         ]);
         $data = $request->all();
         if (isset($data['password']) && $data['password']) {
@@ -237,19 +239,22 @@ class IndexController extends Controller {
             }
 
             if ($request->hasfile('documents')) {
-                $images = $request->file('documents');
-                //dd($images); it shows below logs.
-                foreach($images as $image) {
-                    //dd("to upload"); //it doesn't show.
-                    /*
-                    $name = $image->getClientOriginalName();
-                    $path = $image->storeAs('uploads', $name, 'public');
-
-                    File::create([
-                        'name' => $name,
-                        'path' => '/storage/'.$path
-                    ]);
-                    */
+                $documents = $request->file('documents');
+                //dd($documents);
+                foreach($documents as $document) {
+                    //dd($document);
+                    $name = $document->getClientOriginalName();
+                    $path = $document->storeAs('uploads', $name, 'public');
+                    $find = DB::table('documents')->where('user_id', $user->id)->where('name', $name)->first();
+                    if (!$find) {
+                        Document::create([
+                            'name' => $name,
+                            'url' => '/storage/' . $path,
+                            'user_id' => $user->id,
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s'),
+                        ]);
+                    }
                 }
             }
 

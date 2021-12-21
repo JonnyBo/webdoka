@@ -151,8 +151,16 @@
             <div class="skill__unit">
                 <div class="textarea-div">
                     <label class="skill__label label" for="comment">@lang('site.documents')</label>
+                    @if($worker->documents)
+                        <div>
+                        @foreach($worker->documents as $document)
+                            <a href="{{ $document->url }}">{{ $document->name }}</a>
+                        @endforeach
+                        </div>
+                    @endif
                     <input type="file" class="skill__input input" name="documents[]" id="documents" multiple/>
                 </div>
+
             </div>
         </section>
 

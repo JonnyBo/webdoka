@@ -57,6 +57,11 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Role', 'id', 'role_id');
     }
 
+    public function documents()
+    {
+        return $this->hasMany('App\Models\Document', 'user_id');
+    }
+
     public function delete() {
         //dd($this->worker);
         //Field::where('worker_id', $this->worker->id)->delete();

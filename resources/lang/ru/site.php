@@ -121,4 +121,7 @@ return [
     'update_user_error' => 'Не удалось обновить сотрудника',
     'delete_user_success' => 'Сотрудник успешно удален',
 
+    'comment' => 'Комментарий',
+    'documents' => 'Документы'
+
 ];
