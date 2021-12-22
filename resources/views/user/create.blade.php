@@ -110,7 +110,8 @@
                 </div>
                 <div class="skill__part">
                     <label class="skill__label label" for="experience">@lang('site.experience')</label>
-                    <input class="skill__input input" type="text" id="experience" name="experience" value="{{ old('experience') ?? '' }}" placeholder="@lang('site.you_experience')">
+                    <textarea cols="2" rows="10" class="skill__input input" name="experience{{ $prefix }}" id="experience"></textarea>
+                    <!--input class="skill__input input" type="text" id="experience" name="experience" value="{{ old('experience') ?? '' }}" placeholder="@lang('site.you_experience')"-->
                 </div>
                 <div class="skill__part">
                     <label class="skill__label label" for="skills">@lang('site.choose_skills')</label>
