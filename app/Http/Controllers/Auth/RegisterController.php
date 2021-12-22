@@ -11,6 +11,7 @@ use App\Models\Source;
 use App\Models\Status;
 use App\Models\Skill;
 use Hash;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller {
 
@@ -30,7 +31,13 @@ class RegisterController extends Controller {
 
         //сделать проверку токена
 
-        $worker = new Worker();
+        if (isset($data['email']) && $data['email']) {
+            $user = User::where('email', trim(strip_tags($data['email'])))->first();
+            $worker = User::find($user->id);
+            $worker->worker = new Worker();
+        } else
+            $worker = new Worker();
+
         $roles = Role::all();
         $statuses = Status::all();
         $sources = Source::all();
@@ -44,18 +51,33 @@ class RegisterController extends Controller {
     public function create(Request $request) {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+        $worker = User::where('email', $request->email)->first();
+        //dd($worker);
+        if ($worker->password)
+            return redirect()->route('login')->withErrors('Пользователь с таким E-mail уже зарегистрирован');
+
+        $user = User::find($worker->id);
+        $data = $request->all();
+        if (isset($data['password']) && $data['password']) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            $data['password'] = $user->password;
+        }
+        $user->update($data);
+        /*
+        $user = User::update([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
             'role_id' => 2
         ]);
+        */
+        //dd($user);
 
-        $data = $request->all();
         $data['user_id'] = $user->id;
         $data['status_id'] = Status::getDefaultStatus();
 

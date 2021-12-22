@@ -21,10 +21,10 @@
             <div class="personal__container">
                 <label class="personal__label label" for="fam">@lang('site.name_surname')</label>
                 <input class="personal__input personal__input--first input" type="text" id="fam" name="name{{ $prefix }}"
-                       placeholder="@lang('site.name_surname')" value="{{ old('name' . $prefix) ?? '' }}" required>
+                       placeholder="@lang('site.name_surname')" value="{{ ($worker->name) ? $worker->name : old('name' . $prefix) ?? '' }}" required>
                 <label class="personal__label label" for="mail">@lang('site.email')</label>
                 <input class="personal__input personal__input--first input" type="email" id="mail" name="email"
-                       placeholder="@lang('site.address_email')" value="{{ old('email') ?? '' }}" required>
+                       placeholder="@lang('site.address_email')" value="{{ ($worker->email) ? $worker->email : old('email') ?? '' }}" required>
 
                 <div class="personal__unit">
                     <div class="personal__part">
@@ -110,8 +110,8 @@
                 </div>
                 <div class="skill__part">
                     <label class="skill__label label" for="experience">@lang('site.experience')</label>
-                    <textarea cols="2" rows="10" class="skill__input input" name="experience{{ $prefix }}" id="experience"></textarea>
-                    <!--input class="skill__input input" type="text" id="experience" name="experience" value="{{ old('experience') ?? '' }}" placeholder="@lang('site.you_experience')"-->
+                    <!--textarea cols="2" rows="10" class="skill__input input" name="experience{{ $prefix }}" id="experience"></textarea-->
+                    <input class="skill__input input" type="text" id="experience" name="experience{{ $prefix }}" value="{{ old('experience' . $prefix) ?? '' }}" placeholder="@lang('site.you_experience')">
                 </div>
                 <div class="skill__part">
                     <label class="skill__label label" for="skills">@lang('site.choose_skills')</label>
