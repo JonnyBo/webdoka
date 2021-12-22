@@ -49,7 +49,7 @@ class Worker extends Model
         $this->vyber = trim(strip_tags($data['vyber']));
         $this->skype = trim(strip_tags($data['skype']));
         $this->resume = trim(strip_tags($data['resume']));
-        $this->experience = trim(strip_tags($data['experience']));
+        $this->{'experience' . $prefix} = trim(strip_tags($data['experience' . $prefix]));
         $this->{'education' . $prefix} = trim(strip_tags($data['education' . $prefix]));
         $this->skills = (isset($data['skills']) && $data['skills'] && is_array($data['skills'])) ? implode(',', $data['skills']) : null;
         $this->photo = (isset($data['photo']) && $data['photo']) ? $data['photo'] : null;
@@ -73,7 +73,7 @@ class Worker extends Model
         $model->vyber = trim(strip_tags($data['vyber']));
         $model->skype = trim(strip_tags($data['skype']));
         $model->resume = trim(strip_tags($data['resume']));
-        $model->experience = trim(strip_tags($data['experience']));
+        $model->{'experience' . $prefix} = trim(strip_tags($data['experience' . $prefix]));
         $model->{'comment' . $prefix} = trim(strip_tags($data['comment' . $prefix]));
         $model->{'education' . $prefix} = trim(strip_tags($data['education' . $prefix]));
         $model->skills = (isset($data['skills']) && $data['skills'] && is_array($data['skills'])) ? implode(',', $data['skills']) : null;

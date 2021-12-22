@@ -43,6 +43,7 @@ class CreeateEnLang extends Migration
                 $table->string('sex_en')->nullable();
                 $table->string('region_en')->nullable();
                 $table->string('education_en')->nullable();
+                $table->text('experience_en')->nullable();
             });
         }
     }
@@ -75,7 +76,7 @@ class CreeateEnLang extends Migration
         });
 
         Schema::table('workers', function (Blueprint $table) {
-            $table->dropColumn(['sex_en', 'region_en', 'education_en']);
+            $table->dropColumn(['sex_en', 'region_en', 'education_en', 'experience_en']);
         });
     }
 }

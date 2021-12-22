@@ -10,6 +10,7 @@ html {
   /* 1 */
   -webkit-text-size-adjust: 100%;
   /* 2 */
+    height: 100%;
 }
 
 /* Sections
@@ -19,6 +20,7 @@ html {
  */
 body {
   margin: 0;
+    height: 100%;
 }
 
 /**
@@ -26,6 +28,7 @@ body {
  */
 main {
   display: block;
+    height: 100%;
 }
 
 /**
@@ -480,6 +483,7 @@ template {
   text-align: left;
   position: relative;
   background: #f1f1f8;
+    height: 100%;
 }
 
 .page-header__logo {
@@ -496,6 +500,7 @@ template {
   padding-top: 192px;
   padding-left: 30px;
   background-color: #292929;
+    height: 100%;
 }
 
 .main-nav__toggle {
@@ -531,7 +536,7 @@ template {
 }
 
 .site-list__link--output {
-  margin-top: 514px;
+  /*margin-top: 514px;*/
   padding-bottom: 41px;
 }
 
@@ -754,6 +759,7 @@ template {
 
 .addition__label {
   padding: 0;
+    margin-bottom: 5px;
 }
 
 .addition__input {
@@ -796,6 +802,7 @@ template {
 
 .personal__input--second {
   width: 90%;
+    min-width: 100px;
 }
 
 .personal__unit {
@@ -999,6 +1006,7 @@ template {
 .page-header .langs {
     position: relative;
     top: -80px;
+    width: 150px;
 }
 
 .textarea-div {
