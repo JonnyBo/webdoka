@@ -21,7 +21,7 @@
             <div class="personal__container">
                 <label class="personal__label label" for="fam">@lang('site.name_surname')</label>
                 <input class="personal__input personal__input--first input" type="text" id="fam" name="name{{ $prefix }}"
-                       placeholder="@lang('site.name_surname')" value="{{ ($worker->name) ? $worker->name : old('name' . $prefix) ?? '' }}" required>
+                       placeholder="@lang('site.name_surname')" value="{{ old('name' . $prefix) ?? '' }}" required>
                 <label class="personal__label label" for="mail">@lang('site.email')</label>
                 <input class="personal__input personal__input--first input" type="email" id="mail" name="email"
                        placeholder="@lang('site.address_email')" value="{{ ($worker->email) ? $worker->email : old('email') ?? '' }}" required>

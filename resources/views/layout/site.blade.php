@@ -25,7 +25,7 @@
     <header class="page-header">
         <a class="page-header__logo">
             <picture>
-                <img class="page-header__logo-image" src="/img/logo@1x.png" srcset="./img/logo@2x.png 2x" width="175" height="44"
+                <img class="page-header__logo-image" src="/img/logo.png" srcset="./img/logo.png 2x" width="165" height="44"
                      alt="@lang('site.logo')">
             </picture>
         </a>
