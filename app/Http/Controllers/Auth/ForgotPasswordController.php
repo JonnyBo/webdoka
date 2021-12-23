@@ -40,9 +40,9 @@ class ForgotPasswordController extends Controller {
             ['link' => $link],
             function($message) use ($request) {
                 $message->to($request->email);
-                $message->subject('Восстановление пароля');
+                $message->subject(__('site.mail_forgot_subject'));
             }
         );
-        return back()->with('success', 'Ссылка для восстановления пароля отправлена на почту');
+        return back()->with('success', __('site.mail_forgot_success'));
     }
 }

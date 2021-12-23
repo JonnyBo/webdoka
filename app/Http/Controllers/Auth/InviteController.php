@@ -57,7 +57,7 @@ class InviteController extends Controller {
         if (!$worker->save()) {
             return redirect()
                 ->route('login')
-                ->withErrors('Ошибка регистрации');
+                ->withErrors(__('site.access_denied'));
         }
 
         // ссылка для сброса пароля
@@ -67,10 +67,10 @@ class InviteController extends Controller {
             ['link' => $link],
             function($message) use ($request) {
                 $message->to($request->email);
-                $message->subject('Приглашение на регистрацию');
+                $message->subject(__('site.mail_invite_subject'));
             }
         );
 
-        return back()->with('success', 'Ссылка для регистрации пользователя отправлена на почту');
+        return back()->with('success', __('site.mail_invite_success'));
     }
 }

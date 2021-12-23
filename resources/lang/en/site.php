@@ -57,7 +57,7 @@ return [
 
     'invitation_to_register' => 'Invite on signup',
     'link_to_register' => 'Для регистрации перейдите по этой <a href=":link">ссылке</a>.',
-    'link_to_restore' => 'Для восстановления пароля перейдите по этой <a href="{{ $link }}">ссылке</a>.',
+    'link_to_restore' => 'Для восстановления пароля перейдите по этой <a href=":link">ссылке</a>.',
 
     'new_name' => 'New Name',
     'name' => 'Name',
@@ -120,5 +120,14 @@ return [
     'update_user_success' => 'Сотрудник успешно обновлен',
     'update_user_error' => 'Не удалось обновить сотрудника',
     'delete_user_success' => 'Сотрудник успешно удален',
+
+    'comment' => 'Comments',
+    'documents' => 'Documents',
+
+    'mail_invite_subject' => 'invite to register',
+    'mail_invite_success' => 'Link for register send on E-mail',
+
+    'mail_forgot_subject' => 'Forgot password',
+    'mail_forgot_success' => 'Link for forgot password send on E-mail',
 
 ];
