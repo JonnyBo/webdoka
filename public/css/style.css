@@ -1016,3 +1016,11 @@ template {
 .textarea-div textarea {
     width: 93%;
 }
+
+.skill__part .select2-container {
+    margin-top: 10px;
+}
+.skill__part .select2-selection--multiple {
+    border: 1px solid #e1e5e9 !important;
+    height: 46px !important;
+}

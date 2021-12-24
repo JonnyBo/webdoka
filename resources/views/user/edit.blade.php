@@ -9,6 +9,7 @@
     @php
         $lang = session()->get('locale');
         $prefix = ($lang == 'ru') ? '' : '_' . $lang;
+        //print_r($worker->worker->skills);
     @endphp
 
     <div class="container">
@@ -113,10 +114,13 @@
                 </div>
                 <div class="skill__part">
                     <label class="skill__label label" for="skills">@lang('site.choose_skills')</label>
-                    @foreach($skills as $skill)
-                        <div><input type="checkbox" name="skills[]" value="{{ $skill->id }}" {{ (in_array($skill->id, explode(',', $worker->worker->skills))) ? 'checked' : '' }}><span class="pl-1">{{ $skill->{'name' . $prefix} }}</span></div>
-                @endforeach
-
+                    <select class="skill__input input select2-multiple" name="skills[]"
+                            id="skill" multiple>
+                        <option>@lang('site.choose_skills')</option>
+                        @foreach($skills as $skill)
+                            <option value="{{ $skill->id }}" @if(isset($worker->worker->skills) && !empty($worker->worker->skills) && in_array($skill->id, explode(',', $worker->worker->skills))) selected @endif>{{ $skill->{'name' . $prefix} }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
         </section>

@@ -115,11 +115,13 @@
                 </div>
                 <div class="skill__part">
                     <label class="skill__label label" for="skills">@lang('site.choose_skills')</label>
-                    @foreach($skills as $skill)
-                        <div><input type="checkbox" name="skills[]" value="{{ $skill->id }}"><span class="pl-1">{{ $skill->{'name' . $prefix} }}</span></div>
-                    @endforeach
-                    <!--input class="skill__input input" type="text" id="experience" name="name" placeholder=""
-                           required-->
+                    <select class="skill__input input select2-multiple" name="skills[]"
+                            id="skill" multiple>
+                        <option>@lang('site.choose_skills')</option>
+                        @foreach($skills as $skill)
+                            <option value="{{ $skill->id }}">{{ $skill->{'name' . $prefix} }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
         </section>
