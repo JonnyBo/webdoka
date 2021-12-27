@@ -1022,5 +1022,5 @@ template {
 }
 .skill__part .select2-selection--multiple {
     border: 1px solid #e1e5e9 !important;
-    height: 46px !important;
+    min-height: 46px !important;
 }
