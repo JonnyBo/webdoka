@@ -9,13 +9,15 @@ use Auth;
 class LoginController extends Controller {
 
     public function __construct() {
-        $this->middleware('guest', ['except' => 'logout']);
+        //$this->middleware('guest', ['except' => 'logout']);
     }
 
     /**
      * Форма входа в личный кабинет
      */
     public function login() {
+        if (Auth::check())
+            return redirect()->route('user.index');
         return view('auth.login');
     }
 
@@ -23,6 +25,7 @@ class LoginController extends Controller {
      * Аутентификация пользователя
      */
     public function authenticate(Request $request) {
+        $this->middleware('guest', ['except' => 'logout']);
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
