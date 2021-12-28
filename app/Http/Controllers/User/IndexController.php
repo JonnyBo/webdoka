@@ -121,11 +121,13 @@ class IndexController extends Controller {
             'documents.*' => 'mimes:csv,txt,xlsx,xls,pdf,doc,docx'
         ]);
 
+        //dd($request->role_id);
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            "role_id" => $request->role_id
+            "role_id" => ($request->role_id) ? $request->role_id : 2
         ]);
 
         $data = $request->all();

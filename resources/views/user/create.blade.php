@@ -134,7 +134,7 @@
                 <div class="skill__part">
                     <label class="skill__label label" for="status_id">@lang('site.status')</label>
                     <select class="skill__input input" name="status_id" id="status_id">
-                        <option>@lang('site.choose_status')</option>
+                        <option value="0">@lang('site.choose_status')</option>
                         @foreach($statuses as $status)
                             <option value="{{ $status->id }}">{{ $status->{'name' . $prefix} }}</option>
                         @endforeach
@@ -143,7 +143,7 @@
                 <div class="skill__part">
                     <label class="skill__label label" for="role_id">@lang('site.role')</label>
                     <select class="skill__input input" name="role_id" id="role_id">
-                        <option>@lang('site.choose_role')</option>
+                        <option value="0">@lang('site.choose_role')</option>
                         @foreach($roles as $role)
                             <option value="{{ $role->id }}">{{ $role->{'name' . $prefix} }}</option>
                         @endforeach

@@ -37,7 +37,7 @@ class Worker extends Model
     public function saveWorker($data) {
         $prefix = self::getPrefixName();
         $this->user_id = intval($data['user_id']);
-        $this->status_id = (isset($data['status_id']) && $data['status_id']) ? intval($data['status_id']) : 1;
+        $this->status_id = (isset($data['status_id']) && $data['status_id']) ? intval($data['status_id']) : Status::getDefaultStatus();
         //$this->age = intval($data['age']);
         $this->{'sex' . $prefix} = trim(strip_tags($data['sex' . $prefix]));
         $this->birthday = date('Y-m-d', strtotime($data['birthday']));
@@ -61,7 +61,7 @@ class Worker extends Model
         $prefix = self::getPrefixName();
         $model = Worker::find($data['id']);
         $model->user_id = intval($data['user_id']);
-        $model->status_id = (isset($data['status_id']) && $data['status_id']) ? intval($data['status_id']) : 1;
+        $model->status_id = (isset($data['status_id']) && $data['status_id']) ? intval($data['status_id']) : Status::getDefaultStatus();
         //$model->age = intval($data['age']);
         $model->{'sex' . $prefix} = trim(strip_tags($data['sex' . $prefix]));
         $model->birthday = date('Y-m-d', strtotime($data['birthday']));
