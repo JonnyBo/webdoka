@@ -67,16 +67,8 @@ class RegisterController extends Controller {
         } else {
             $data['password'] = $user->password;
         }
+        $user->role_id = 2;
         $user->update($data);
-        /*
-        $user = User::update([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role_id' => 2
-        ]);
-        */
-        //dd($user);
 
         $data['user_id'] = $user->id;
         $data['status_id'] = Status::getDefaultStatus();
